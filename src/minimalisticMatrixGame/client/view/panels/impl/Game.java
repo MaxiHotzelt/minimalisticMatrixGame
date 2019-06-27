@@ -2,38 +2,69 @@ package minimalisticMatrixGame.client.view.panels.impl;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JComponent;
 
+import minimalisticMatrixGame.client.model.InputField;
+import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 
 public class Game implements IPanel {
 
 	private static Game game = new Game();
 
+	private String word = "Apfeltasche";
+	private String inputWord;
+	private int yPos = -200;
+	private List<MatrixString> matrixstrings;
+	private InputField inputfield;
+
 	private Game() {
+		inputfield = new InputField();
+		setupStrings();
 	}
 
-//	private void drawMatrixWord(Graphics g) {
-//		int yVelocity = 1;
-//		for (int i = 0; i < word.length(); i++) {
-//			g.drawString("" + word.charAt(i), 20, yPos);
-////			yPos += 50;
-//			yPos += yVelocity;
-//		}
-//	}
+	private void tick() {
+		for (MatrixString s : matrixstrings) {
+			s.tick();
+		}
+		inputfield.tick();
+	}
 
 	public void render(Graphics g) {
-		g.drawString("Warte auf andere Spieler", 960, 500);
+		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		tick();
+		drawMatrixWord(g);
+		inputfield.render(g);
 	}
 
-	public static Game getInstance() {
-		return game;
+	private void drawMatrixWord(Graphics g) {
+		for (MatrixString s : matrixstrings) {
+			s.render(g);
+		}
+	}
+
+	private void setupStrings() {
+		matrixstrings = new ArrayList<>();
+//		for (int i = 10; i < this.getWidth(); i += MatrixChar.getFont().getSize()) {
+//			int yPos = new Random().nextInt(200) + 1;
+//			int vel = new Random().nextInt(15) + 2;
+//			matrixstrings.add(new MatrixString(word, i, -yPos, vel));
+//		}
 	}
 
 	@Override
 	public ArrayList<JComponent> getComponents() {
-		return new ArrayList<>();
+		return null;
+	}
+
+	public static Game getInstance() {
+		return game;
 	}
 
 }

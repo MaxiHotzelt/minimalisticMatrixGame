@@ -1,5 +1,7 @@
 package minimalisticMatrixGame.client.model;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -9,20 +11,33 @@ public class MatrixChar {
 		this.startingPosition = startingPosition;
 		this.character = character;
 		this.yVelocity = yVelocity;
+		this.yPos = (int) startingPosition.getY();
+		this.color = Color.red;
 	}
 
 	private final Point startingPosition;
 	private final char character;
 	private final int yVelocity;
-	private Point actualPosition;
+	private static final Font font = new Font("SansSarif", Font.ROMAN_BASELINE, 30);
+	private int yPos;
+	private final Color color;
 
 	public void tick() {
-		actualPosition.y += yVelocity;
-
+		if (yPos > 1080) {
+			yPos -= 1080;
+		} else {
+			yPos += yVelocity;
+		}
 	}
 
 	public void render(Graphics g) {
-		g.drawString("" + this.character, actualPosition.x, actualPosition.y);
+		g.setFont(font);
+		g.setColor(color);
+		g.drawString("" + this.character, startingPosition.x, yPos);
+	}
+
+	public static Font getFont() {
+		return font;
 	}
 
 }

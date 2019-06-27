@@ -18,9 +18,9 @@ public class GameServer extends Thread {
 	@Override
 	public void run() {
 		super.run();
-
-		GameThread a = new GameThread(player1);
-		GameThread b = new GameThread(player2);
+//
+//		GameThread a = new GameThread(player1);
+//		GameThread b = new GameThread(player2);
 
 		while (true) {
 
