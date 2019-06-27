@@ -47,7 +47,9 @@ public class Container extends JPanel {
 		this.removeAll();
 
 		if (panel instanceof Start) {
-			this.setLayout(new GridLayout(3, 1));
+			// Zu testzwecken setzen wir einen weiteren Button hinen -> testButton -> 4
+			// müsste eigentlich 3 sein
+			this.setLayout(new GridLayout(4, 1));
 		} else if (panel instanceof Game) {
 			gamestate = GamestateEnum.Game;
 		} else {
@@ -67,5 +69,6 @@ public class Container extends JPanel {
 		if (gamestate == GamestateEnum.Game) {
 			Game.getInstance().render(g);
 		}
+		repaint();
 	}
 }

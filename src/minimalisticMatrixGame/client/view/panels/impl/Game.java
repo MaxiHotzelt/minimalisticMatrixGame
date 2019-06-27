@@ -3,10 +3,12 @@ package minimalisticMatrixGame.client.view.panels.impl;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JComponent;
 
 import minimalisticMatrixGame.client.model.InputField;
+import minimalisticMatrixGame.client.model.MatrixChar;
 import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 
@@ -51,16 +53,17 @@ public class Game implements IPanel {
 
 	private void setupStrings() {
 		matrixstrings = new ArrayList<>();
-//		for (int i = 10; i < this.getWidth(); i += MatrixChar.getFont().getSize()) {
-//			int yPos = new Random().nextInt(200) + 1;
-//			int vel = new Random().nextInt(15) + 2;
-//			matrixstrings.add(new MatrixString(word, i, -yPos, vel));
-//		}
+		for (int i = 10; i < 1920; i += MatrixChar.getFont().getSize()) {
+			int yPos = new Random().nextInt(200) + 1;
+			int vel = new Random().nextInt(15) + 2;
+			matrixstrings.add(new MatrixString(word, i, -yPos, vel));
+		}
 	}
 
 	@Override
 	public ArrayList<JComponent> getComponents() {
-		return null;
+//		return null;
+		return new ArrayList<>();
 	}
 
 	public static Game getInstance() {
