@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 import minimalisticMatrixGame.client.view.panels.impl.Game;
@@ -15,6 +16,8 @@ import minimalisticMatrixGame.client.view.panels.impl.Start;
 public class Container extends JPanel {
 
 	private static Container container = new Container();
+	private Game game;
+	private String soughtWord;
 
 	private GamestateEnum gamestate;
 
@@ -50,25 +53,36 @@ public class Container extends JPanel {
 			// Zu testzwecken setzen wir einen weiteren Button hinen -> testButton -> 4
 			// müsste eigentlich 3 sein
 			this.setLayout(new GridLayout(4, 1));
+			addPanelComponents(panel);
 		} else if (panel instanceof Game) {
+			soughtWord = "Apfeltasche";
+//			this.requestFocusInWindow();
+			this.addKeyListener(new GameListener());
 			gamestate = GamestateEnum.Game;
+			game = new Game(soughtWord);
 		} else {
 			this.setLayout(null);
 		}
-		for (JComponent c : panel.getComponents()) {
+
+		revalidate();
+	}
+
+	private void addPanelComponents(IPanel panel) {
+		for (JComponent c : panel.getComponentss()) {
 			this.add(c);
 		}
-
-		repaint();
-		revalidate();
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
 		if (gamestate == GamestateEnum.Game) {
-			Game.getInstance().render(g);
+			super.paintComponent(g);
+			game.render(g);
 		}
 		repaint();
+	}
+
+	public String getWord() {
+		return this.soughtWord;
 	}
 }
