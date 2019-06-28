@@ -75,10 +75,7 @@ public class Container extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/MaxiHotzelt/minimalisticMatrixGame.git
 		if (gamestate == GamestateEnum.Game) {
 			Game.getInstance().render(g);
 			repaint();

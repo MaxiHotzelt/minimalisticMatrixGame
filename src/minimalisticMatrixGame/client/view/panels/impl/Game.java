@@ -17,14 +17,6 @@ import minimalisticMatrixGame.client.view.panels.IPanel;
 
 public class Game implements IPanel {
 
-<<<<<<< HEAD
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -7935343836693703356L;
-
-=======
->>>>>>> branch 'master' of https://github.com/MaxiHotzelt/minimalisticMatrixGame.git
 	private static Game game = new Game();
 
 	private String word;
@@ -33,14 +25,11 @@ public class Game implements IPanel {
 	private InputField inputfield;
 
 	private Game() {
-<<<<<<< HEAD
-=======
 		init();
 	}
 
 	private void init() {
 		Container.getInstance().addKeyListener(GameListener.getInstance());
->>>>>>> branch 'master' of https://github.com/MaxiHotzelt/minimalisticMatrixGame.git
 	}
 
 	public void start(String word) {
