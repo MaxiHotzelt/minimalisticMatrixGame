@@ -15,7 +15,6 @@ import minimalisticMatrixGame.client.view.panels.impl.Start;
 public class Container extends JPanel {
 
 	private static Container container = new Container();
-	private Game game;
 	private String soughtWord;
 
 	private GamestateEnum gamestate;
@@ -51,6 +50,7 @@ public class Container extends JPanel {
 		if (panel instanceof Start) {
 			// Zu testzwecken setzen wir einen weiteren Button hinen -> testButton -> 4
 			// müsste eigentlich 3 sein
+			this.gamestate = GamestateEnum.Start;
 			this.setLayout(new GridLayout(4, 1));
 			addPanelComponents(panel);
 		} else if (panel instanceof Game) {
@@ -77,12 +77,14 @@ public class Container extends JPanel {
 		super.paintComponent(g);
 
 		if (gamestate == GamestateEnum.Game) {
+
 			Game.getInstance().render(g);
 			repaint();
 		}
 	}
 
-	public String getWord() {
-		return this.soughtWord;
+	public GamestateEnum getGamestate() {
+		return this.gamestate;
 	}
+
 }

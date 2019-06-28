@@ -4,7 +4,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import minimalisticMatrixGame.client.model.InputField;
+import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.Container;
+import minimalisticMatrixGame.client.view.panels.impl.Game;
+import minimalisticMatrixGame.client.view.panels.impl.Start;
 
 public class GameListener implements KeyListener {
 
@@ -19,15 +22,18 @@ public class GameListener implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == 8) {
-			InputField.getInstance().deleteLastChar();
-		} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			checkWords();
-		} else {
-			InputField.getInstance().addChar(e.getKeyChar());
+
+		if (Container.getInstance().getGamestate() == GamestateEnum.Game) {
+			if (e.getKeyCode() == 8) {
+				InputField.getInstance().deleteLastChar();
+			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+				checkWords();
+			} else if (String.valueOf(e.getKeyChar()).matches(("[a-zA-Z]"))) {
+				InputField.getInstance().addChar(e.getKeyChar());
+			}
+			// nach jedem Tastendruck muss der Controller das inputfield nehmen und dieses
+			// mit dem lösungswort abprüfen
 		}
-		// nach jedem Tastendruck muss der Controller das inputfield nehmen und dieses
-		// mit dem lösungswort abprüfen
 
 	}
 
@@ -38,8 +44,9 @@ public class GameListener implements KeyListener {
 	}
 
 	private void checkWords() {
-//		String inputWord = String.valueOf(InputField.getInstance().getInput());
-		if (InputField.getInstance().getInput().equalsIgnoreCase(Container.getInstance().getWord())) {
+		if (InputField.getInstance().getInput().equalsIgnoreCase(Game.getInstance().getWord())) {
+			GameClient.getInstance().gameFinished();
+			Container.getInstance().changePanel(Start.getInstance());
 			System.out.println("GEWONNEN!!!!!");
 		}
 

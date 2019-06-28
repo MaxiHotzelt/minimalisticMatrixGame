@@ -81,4 +81,8 @@ public class Game implements IPanel {
 		return game;
 	}
 
+	public String getWord() {
+		return this.word;
+	}
+
 }

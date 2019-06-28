@@ -50,4 +50,9 @@ public class GameClient extends Thread {
 	public static GameClient getInstance() {
 		return gameClient;
 	}
+
+	public void gameFinished() {
+		Long time = System.currentTimeMillis();
+		System.out.println(time);
+	}
 }
