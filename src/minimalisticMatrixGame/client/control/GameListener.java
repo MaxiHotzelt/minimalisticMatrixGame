@@ -8,6 +8,11 @@ import minimalisticMatrixGame.client.view.Container;
 
 public class GameListener implements KeyListener {
 
+	private static GameListener gameListener = new GameListener();
+
+	private GameListener() {
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
@@ -38,5 +43,9 @@ public class GameListener implements KeyListener {
 			System.out.println("GEWONNEN!!!!!");
 		}
 
+	}
+
+	public static GameListener getInstance() {
+		return gameListener;
 	}
 }

@@ -8,27 +8,28 @@ import java.util.Random;
 
 import javax.swing.JComponent;
 
+import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.model.InputField;
 import minimalisticMatrixGame.client.model.MatrixChar;
 import minimalisticMatrixGame.client.model.MatrixString;
+import minimalisticMatrixGame.client.view.Container;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 
 public class Game implements IPanel {
 
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = -7935343836693703356L;
-
-//	private static Game game = new Game();
+	private static Game game = new Game();
 
 	private String word;
 	private int yPos = -200;
 	private List<MatrixString> matrixstrings;
 	private InputField inputfield;
 
-	public Game(String word) {
-		start(word);
+	private Game() {
+		init();
+	}
+
+	private void init() {
+		Container.getInstance().addKeyListener(GameListener.getInstance());
 	}
 
 	public void start(String word) {
@@ -72,12 +73,12 @@ public class Game implements IPanel {
 	}
 
 	@Override
-	public ArrayList<JComponent> getComponentss() {
+	public ArrayList<JComponent> getComponents() {
 		return new ArrayList<>();
 	}
 
-//	public static Game getInstance() {
-//		return game;
-//	}
+	public static Game getInstance() {
+		return game;
+	}
 
 }

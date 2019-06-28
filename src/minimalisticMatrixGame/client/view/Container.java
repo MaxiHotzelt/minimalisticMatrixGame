@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 import minimalisticMatrixGame.client.view.panels.impl.Game;
@@ -56,30 +55,31 @@ public class Container extends JPanel {
 			addPanelComponents(panel);
 		} else if (panel instanceof Game) {
 			soughtWord = "Apfeltasche";
-//			this.requestFocusInWindow();
-			this.addKeyListener(new GameListener());
+			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
-			game = new Game(soughtWord);
+			Game.getInstance().start(soughtWord);
 		} else {
 			this.setLayout(null);
 		}
 
+		repaint();
 		revalidate();
 	}
 
 	private void addPanelComponents(IPanel panel) {
-		for (JComponent c : panel.getComponentss()) {
+		for (JComponent c : panel.getComponents()) {
 			this.add(c);
 		}
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+
 		if (gamestate == GamestateEnum.Game) {
-			super.paintComponent(g);
-			game.render(g);
+			Game.getInstance().render(g);
+			repaint();
 		}
-		repaint();
 	}
 
 	public String getWord() {
