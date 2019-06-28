@@ -6,7 +6,6 @@ import java.awt.GridLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
-import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 import minimalisticMatrixGame.client.view.panels.impl.Game;
@@ -56,8 +55,7 @@ public class Container extends JPanel {
 			addPanelComponents(panel);
 		} else if (panel instanceof Game) {
 			soughtWord = "Apfeltasche";
-//			this.requestFocusInWindow();
-			this.addKeyListener(new GameListener());
+			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
 			Game.getInstance().start(soughtWord);
 		} else {
@@ -77,6 +75,10 @@ public class Container extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'master' of https://github.com/MaxiHotzelt/minimalisticMatrixGame.git
 		if (gamestate == GamestateEnum.Game) {
 			Game.getInstance().render(g);
 			repaint();
