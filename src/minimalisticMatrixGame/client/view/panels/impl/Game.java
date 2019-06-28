@@ -1,6 +1,7 @@
 package minimalisticMatrixGame.client.view.panels.impl;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -14,16 +15,27 @@ import minimalisticMatrixGame.client.view.panels.IPanel;
 
 public class Game implements IPanel {
 
-	private static Game game = new Game();
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -7935343836693703356L;
 
-	private String word = "Apfeltasche";
-	private String inputWord;
+//	private static Game game = new Game();
+
+	private String word;
 	private int yPos = -200;
 	private List<MatrixString> matrixstrings;
 	private InputField inputfield;
 
-	private Game() {
-		inputfield = new InputField();
+	public Game(String word) {
+		start(word);
+	}
+
+	public void start(String word) {
+		this.word = word;
+		inputfield = InputField.getInstance();
+		inputfield.setLength(word.length());
+		inputfield.setPosition(new Point(0, 900));
 		setupStrings();
 	}
 
@@ -31,7 +43,6 @@ public class Game implements IPanel {
 		for (MatrixString s : matrixstrings) {
 			s.tick();
 		}
-		inputfield.tick();
 	}
 
 	public void render(Graphics g) {
@@ -61,13 +72,12 @@ public class Game implements IPanel {
 	}
 
 	@Override
-	public ArrayList<JComponent> getComponents() {
-//		return null;
+	public ArrayList<JComponent> getComponentss() {
 		return new ArrayList<>();
 	}
 
-	public static Game getInstance() {
-		return game;
-	}
+//	public static Game getInstance() {
+//		return game;
+//	}
 
 }

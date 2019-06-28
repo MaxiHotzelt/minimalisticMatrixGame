@@ -42,7 +42,7 @@ public class Start implements IPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Container.getInstance().changePanel(Game.getInstance());
+				Container.getInstance().changePanel(new Game("a"));
 			}
 		});
 	}
@@ -60,7 +60,7 @@ public class Start implements IPanel {
 	}
 
 	@Override
-	public ArrayList<JComponent> getComponents() {
+	public ArrayList<JComponent> getComponentss() {
 		ArrayList<JComponent> comp = new ArrayList<JComponent>();
 		comp.add(this.usernameLbl);
 		comp.add(this.usernameTxtFd);
