@@ -36,7 +36,7 @@ public class MainController implements ActionListener {
 				try (Socket socket = new Socket("10.176.51.126", 31337)) {
 					this.writer = new PrintWriter(socket.getOutputStream(), true);
 					this.reader = new Scanner(socket.getInputStream());
-					Container.getInstance().changePanel(new Game("a"));
+					Container.getInstance().changePanel(Game.getInstance());
 
 					while (reader.hasNextLine()) {
 //						if(nachricht = go) {

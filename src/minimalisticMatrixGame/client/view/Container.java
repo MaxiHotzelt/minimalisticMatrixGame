@@ -59,27 +59,28 @@ public class Container extends JPanel {
 //			this.requestFocusInWindow();
 			this.addKeyListener(new GameListener());
 			gamestate = GamestateEnum.Game;
-			game = new Game(soughtWord);
+			Game.getInstance().start(soughtWord);
 		} else {
 			this.setLayout(null);
 		}
 
+		repaint();
 		revalidate();
 	}
 
 	private void addPanelComponents(IPanel panel) {
-		for (JComponent c : panel.getComponentss()) {
+		for (JComponent c : panel.getComponents()) {
 			this.add(c);
 		}
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		if (gamestate == GamestateEnum.Game) {
-			super.paintComponent(g);
-			game.render(g);
+			Game.getInstance().render(g);
+			repaint();
 		}
-		repaint();
 	}
 
 	public String getWord() {

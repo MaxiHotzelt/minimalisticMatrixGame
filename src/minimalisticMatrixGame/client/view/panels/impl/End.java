@@ -9,7 +9,7 @@ import minimalisticMatrixGame.client.view.panels.IPanel;
 public class End implements IPanel {
 
 	@Override
-	public ArrayList<JComponent> getComponentss() {
+	public ArrayList<JComponent> getComponents() {
 		// TODO Auto-generated method stub
 		return null;
 	}
