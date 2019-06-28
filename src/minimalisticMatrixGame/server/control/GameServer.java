@@ -9,21 +9,24 @@ public class GameServer extends Thread {
 
 	public GameServer(Player player1, Player player2) {
 
-		System.out.println("Game Server created for: \n" + player1 + "\n" + player2);
+		System.out.println("Game Server created for: \n" + player1.getSocket() + "\n" + player2.getSocket());
 
 		this.player1 = player1;
 		this.player2 = player2;
+
 	}
 
 	@Override
 	public void run() {
 		super.run();
-//
-//		GameThread a = new GameThread(player1);
-//		GameThread b = new GameThread(player2);
+
+		player1.start();
+		player2.start();
+		player1.setStartGame(true);
+		player2.setStartGame(true);
 
 		while (true) {
-
+			// keep it running
 		}
 
 	}

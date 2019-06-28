@@ -10,6 +10,8 @@ public class Player extends Thread {
 	private PrintWriter writer;
 	private Socket socket;
 
+	private boolean startGame = false;
+
 	public Player(Socket socket) {
 		this.socket = socket;
 		try {
@@ -36,19 +38,18 @@ public class Player extends Thread {
 	public void run() {
 		super.run();
 
-		String incomingMessage;
-
 		while (true) {
-			while (this.getReader().hasNextLine()) {
-				incomingMessage = this.getReader().nextLine();
-				System.out.println(incomingMessage);
-//				response = serverProtocol.messageHandler(incomingMessage);
-//
-//				this.writer.println(response);
-
+			if (startGame) {
+				System.out.println("in here");
+				this.writer.println("Go");
+				this.writer.flush();
 			}
 		}
 
+	}
+
+	public void setStartGame(boolean value) {
+		this.startGame = value;
 	}
 
 }
