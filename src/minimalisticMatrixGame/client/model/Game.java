@@ -1,8 +1,8 @@
 package minimalisticMatrixGame.client.model;
 
-public class GameModel {
+public class Game {
 
-	private static GameModel game = new GameModel();
+	private static Game game = new Game();
 
 	private String soughtword;
 
@@ -13,11 +13,11 @@ public class GameModel {
 
 	private boolean won;
 
-	private GameModel() {
+	private Game() {
 		won = false;
 	}
 
-	public static GameModel getInstance() {
+	public static Game getInstance() {
 		return game;
 	}
 

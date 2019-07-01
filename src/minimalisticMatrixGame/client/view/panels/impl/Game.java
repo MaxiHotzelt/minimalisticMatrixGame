@@ -13,15 +13,15 @@ import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.Container;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 
-public class GamePanel implements IPanel {
+public class Game implements IPanel {
 
-	private static GamePanel game = new GamePanel();
+	private static Game game = new Game();
 
 	private List<MatrixString> matrixstrings;
 	private InputField inputfield;
 	private boolean ready = false;
 
-	private GamePanel() {
+	private Game() {
 		init();
 	}
 
@@ -65,7 +65,7 @@ public class GamePanel implements IPanel {
 		return new ArrayList<>();
 	}
 
-	public static GamePanel getInstance() {
+	public static Game getInstance() {
 		return game;
 	}
 

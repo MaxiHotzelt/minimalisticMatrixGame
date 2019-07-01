@@ -3,7 +3,7 @@ package minimalisticMatrixGame.client.control;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import minimalisticMatrixGame.client.model.GameModel;
+import minimalisticMatrixGame.client.model.Game;
 import minimalisticMatrixGame.client.model.InputField;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.Container;
@@ -43,7 +43,7 @@ public class GameListener implements KeyListener {
 	}
 
 	private void checkWords() {
-		if (InputField.getInstance().getInput().equalsIgnoreCase(GameModel.getInstance().getWord())) {
+		if (InputField.getInstance().getInput().equalsIgnoreCase(Game.getInstance().getWord())) {
 			System.out.println("GEWONNEN!!!!!");
 			GameClient.getInstance().setFinishedGame(true);
 		}

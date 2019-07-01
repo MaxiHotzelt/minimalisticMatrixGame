@@ -2,16 +2,18 @@ package minimalisticMatrixGame.client.view;
 
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import minimalisticMatrixGame.client.control.MainController;
-import minimalisticMatrixGame.client.model.GameModel;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 import minimalisticMatrixGame.client.view.panels.impl.End;
-import minimalisticMatrixGame.client.view.panels.impl.GamePanel;
+import minimalisticMatrixGame.client.view.panels.impl.Game;
 import minimalisticMatrixGame.client.view.panels.impl.Loading;
 import minimalisticMatrixGame.client.view.panels.impl.Start;
 
@@ -19,8 +21,7 @@ import minimalisticMatrixGame.client.view.panels.impl.Start;
 public class Container extends JPanel {
 
 	private static Container container = new Container();
-	private String soughtWord;
-
+	private Timer timer;
 	private GamestateEnum gamestate;
 
 	private Container() {
@@ -30,7 +31,14 @@ public class Container extends JPanel {
 	}
 
 	private void init() {
-		gamestate = GamestateEnum.Start;
+		this.gamestate = GamestateEnum.Start;
+		this.timer = new Timer(16, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent evt) {
+				repaint();
+			}
+		});
+		timer.start();
 	}
 
 	private void config() {
@@ -38,7 +46,7 @@ public class Container extends JPanel {
 	}
 
 	private void build() {
-		// not needed
+		// not needed atm
 	}
 
 	public static Container getInstance() {
@@ -52,26 +60,39 @@ public class Container extends JPanel {
 		this.removeAll();
 
 		if (panel instanceof Start) {
-			// Zu testzwecken setzen wir einen weiteren Button hinen -> testButton -> 4
-			// müsste eigentlich 3 sein
-			this.gamestate = GamestateEnum.Start;
+			gamestate = GamestateEnum.Start;
 			this.setLayout(new GridLayout(4, 1));
-			addPanelComponents(panel);
 		} else if (panel instanceof Loading) {
 			this.gamestate = GamestateEnum.Loading;
-		} else if (panel instanceof GamePanel) {
+		} else if (panel instanceof Game) {
+			String soughtWord = "Apfeltasche";
 			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
-			GamePanel.getInstance().settings(MainController.getInstance().createMatrixStringList(),
-					GameModel.getInstance().getWord().length());
+			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(),
+					minimalisticMatrixGame.client.model.Game.getInstance().getWord().length());
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
+			this.setLayout(new GridLayout(2, 1));
 		} else {
 			this.setLayout(null);
 		}
 
+		addPanelComponents(panel);
+
 		repaint();
 		revalidate();
+	}
+
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		if (gamestate == GamestateEnum.Game && Game.getInstance().isReady()) {
+			Game.getInstance().render(g);
+		} else if (gamestate == GamestateEnum.Loading) {
+			Loading.getInstance().render(g);
+		} else if (gamestate == GamestateEnum.End) {
+			End.getInstance().render(g);
+		}
 	}
 
 	private void addPanelComponents(IPanel panel) {
@@ -80,29 +101,8 @@ public class Container extends JPanel {
 		}
 	}
 
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if (gamestate == GamestateEnum.Game && GamePanel.getInstance().isReady()) {
-			GamePanel.getInstance().render(g);
-			repaint();
-		} else if (gamestate == GamestateEnum.Loading) {
-			Loading.getInstance().render(g);
-			repaint();
-		} else if (gamestate == GamestateEnum.End) {
-			End.getInstance().render(g);
-			repaint();
-		}
-	}
-
 	public GamestateEnum getGamestate() {
-		return this.gamestate;
+		return gamestate;
 	}
 
 }

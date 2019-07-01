@@ -7,7 +7,6 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import minimalisticMatrixGame.client.model.GameModel;
 import minimalisticMatrixGame.client.model.MatrixChar;
 import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.Container;
@@ -40,7 +39,7 @@ public class MainController implements ActionListener {
 
 	public ArrayList<MatrixString> createMatrixStringList() {
 		ArrayList<MatrixString> matrixstrings = new ArrayList<>();
-		String word = GameModel.getInstance().getWord();
+		String word = minimalisticMatrixGame.client.model.Game.getInstance().getWord();
 		for (int i = 10; i < 1920; i += MatrixChar.getFont().getSize()) {
 			int yPos = new Random().nextInt(200) + 1;
 			int vel = new Random().nextInt(15) + 2;
