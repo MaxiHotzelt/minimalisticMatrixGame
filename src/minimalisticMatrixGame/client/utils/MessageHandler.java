@@ -18,6 +18,7 @@ public class MessageHandler {
 	public void handleMessage(String message) {
 		if (message.toLowerCase(Locale.getDefault()).contains("start game")) {
 			Container.getInstance().changePanel(Game.getInstance());
+
 			GameClient.getInstance().setGameRunning(true);
 		} else if (message.toLowerCase(Locale.getDefault()).contains("end game")) {
 			if (message.contains("won")) {
