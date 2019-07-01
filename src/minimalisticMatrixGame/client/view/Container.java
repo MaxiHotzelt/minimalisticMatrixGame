@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.panels.IPanel;
+import minimalisticMatrixGame.client.view.panels.impl.End;
 import minimalisticMatrixGame.client.view.panels.impl.Game;
 import minimalisticMatrixGame.client.view.panels.impl.Loading;
 import minimalisticMatrixGame.client.view.panels.impl.Start;
@@ -61,6 +62,8 @@ public class Container extends JPanel {
 			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
 			Game.getInstance().start(soughtWord);
+		} else if (panel instanceof End) {
+			gamestate = GamestateEnum.End;
 		} else {
 			this.setLayout(null);
 		}
@@ -80,11 +83,13 @@ public class Container extends JPanel {
 		super.paintComponent(g);
 
 		if (gamestate == GamestateEnum.Game) {
-
 			Game.getInstance().render(g);
 			repaint();
 		} else if (gamestate == GamestateEnum.Loading) {
 			Loading.getInstance().render(g);
+			repaint();
+		} else if (gamestate == GamestateEnum.End) {
+			End.getInstance().render(g);
 			repaint();
 		}
 	}

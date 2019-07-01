@@ -18,11 +18,11 @@ public class GameClient extends Thread {
 	private Scanner reader;
 
 	private boolean finishedGame;
-	private boolean gameStarted;
+	private boolean gameRunning;
 
 	private GameClient() {
 		finishedGame = false;
-		gameStarted = false;
+		gameRunning = false;
 	}
 
 	public void connect() {
@@ -47,13 +47,16 @@ public class GameClient extends Thread {
 			while (this.reader.hasNextLine()) {
 				MessageHandler.getInstance().handleMessage(this.reader.nextLine());
 
-				if (gameStarted) {
+				if (gameRunning) {
 					while (!finishedGame) {
 						// do nothing
 					}
 
-					this.writer.println("Done");
+					this.writer.println("done");
 					this.writer.flush();
+
+					// is set to false, because the game has been started
+					gameRunning = false;
 				}
 			}
 		}
@@ -72,8 +75,8 @@ public class GameClient extends Thread {
 		this.finishedGame = finishedGame;
 	}
 
-	public void setGameStarted(boolean gameStarted) {
-		this.gameStarted = gameStarted;
+	public void setGameRunning(boolean gameRunning) {
+		this.gameRunning = gameRunning;
 	}
 
 }

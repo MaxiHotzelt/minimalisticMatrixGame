@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.util.Scanner;
 
 import minimalisticMatrixGame.server.control.GameServer;
+import minimalisticMatrixGame.server.utils.MessageHandler;
 
 public class Player extends Thread {
 	private Scanner reader;
@@ -13,7 +14,11 @@ public class Player extends Thread {
 	private Socket socket;
 
 	private boolean initGame = false;
+	private boolean sendEnd = false;
 	private boolean finishedGame = false;
+	private boolean endGame = false;
+
+	private boolean won = false;
 
 	private GameServer gameServer;
 
@@ -49,10 +54,24 @@ public class Player extends Thread {
 				this.writer.println("start game");
 				this.writer.flush();
 
+				this.reader.hasNext();
+				MessageHandler.getInstance().handleMessage(this.reader.nextLine(), this);
+
 				// game doesn't need to be initialized again, so initGame is set to false
 				initGame = false;
 			} else if (finishedGame) {
-				gameServer.setWinner(this);
+				// this only should be called once - right after the word is guessed
+				if (!sendEnd) {
+					gameServer.finishedGame(this);
+					sendEnd = true;
+				}
+			}
+			if (endGame) {
+				if (won) {
+					this.writer.println("end game won");
+				} else {
+					this.writer.println("end game lost");
+				}
 			}
 		}
 
@@ -68,6 +87,18 @@ public class Player extends Thread {
 
 	public void setGameServer(GameServer gameserver) {
 		this.gameServer = gameserver;
+	}
+
+	public boolean isFinishedGame() {
+		return finishedGame;
+	}
+
+	public void setEndGame(boolean endGame) {
+		this.endGame = endGame;
+	}
+
+	public void setWon(boolean won) {
+		this.won = won;
 	}
 
 }

@@ -7,7 +7,6 @@ import minimalisticMatrixGame.client.model.InputField;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.Container;
 import minimalisticMatrixGame.client.view.panels.impl.Game;
-import minimalisticMatrixGame.client.view.panels.impl.Start;
 
 public class GameListener implements KeyListener {
 
@@ -45,8 +44,6 @@ public class GameListener implements KeyListener {
 
 	private void checkWords() {
 		if (InputField.getInstance().getInput().equalsIgnoreCase(Game.getInstance().getWord())) {
-			GameClient.getInstance().gameFinished();
-			Container.getInstance().changePanel(Start.getInstance());
 			System.out.println("GEWONNEN!!!!!");
 			GameClient.getInstance().setFinishedGame(true);
 		}

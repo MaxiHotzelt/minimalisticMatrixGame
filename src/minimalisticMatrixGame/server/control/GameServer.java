@@ -8,6 +8,7 @@ public class GameServer extends Thread {
 	private Player player2;
 
 	private Player winner;
+	private boolean running = true;
 
 	public GameServer(Player player1, Player player2) {
 
@@ -21,9 +22,11 @@ public class GameServer extends Thread {
 
 	}
 
-	public void setWinner(Player player) {
+	// is being called, if a player finished the game
+	public void finishedGame(Player player) {
 		if (winner == null) {
 			winner = player;
+			player.setWon(true);
 		}
 	}
 
@@ -33,8 +36,13 @@ public class GameServer extends Thread {
 		player1.start();
 		player2.start();
 
-		while (true) {
-			// keep it running
+		while (running) {
+			if (player1.isFinishedGame() && player2.isFinishedGame()) {
+				player1.setEndGame(true);
+				player2.setEndGame(true);
+
+				running = false;
+			}
 		}
 
 	}
