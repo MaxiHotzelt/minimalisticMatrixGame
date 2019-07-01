@@ -5,12 +5,17 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import minimalisticMatrixGame.server.control.GameServer;
+
 public class Player extends Thread {
 	private Scanner reader;
 	private PrintWriter writer;
 	private Socket socket;
 
-	private boolean startGame = false;
+	private boolean initGame = false;
+	private boolean finishedGame = false;
+
+	private GameServer gameServer;
 
 	public Player(Socket socket) {
 		this.socket = socket;
@@ -38,18 +43,31 @@ public class Player extends Thread {
 	public void run() {
 		super.run();
 
+		this.setInitGame(true);
 		while (true) {
-			if (startGame) {
-				System.out.println("in here");
-				this.writer.println("Go");
+			if (initGame) {
+				this.writer.println("start game");
 				this.writer.flush();
+
+				// game doesn't need to be initialized again, so initGame is set to false
+				initGame = false;
+			} else if (finishedGame) {
+				gameServer.setWinner(this);
 			}
 		}
 
 	}
 
-	public void setStartGame(boolean value) {
-		this.startGame = value;
+	public void setInitGame(boolean value) {
+		this.initGame = value;
+	}
+
+	public void setFinishedGame(boolean finishedGame) {
+		this.finishedGame = finishedGame;
+	}
+
+	public void setGameServer(GameServer gameserver) {
+		this.gameServer = gameserver;
 	}
 
 }

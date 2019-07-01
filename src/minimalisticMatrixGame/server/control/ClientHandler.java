@@ -25,9 +25,12 @@ public class ClientHandler extends Thread {
 
 	@Override
 	public void run() {
+
+		final int MAX_PLAYERS_PER_GAME = 2;
+
 		while (true) {
-			if (waitingPool.size() == 2) {
-				new GameServer(waitingPool.get(0), waitingPool.get(1));
+			if (waitingPool.size() == MAX_PLAYERS_PER_GAME) {
+				new GameServer(waitingPool.get(0), waitingPool.get(1)).start();
 				waitingPool.remove(1);
 				waitingPool.remove(0);
 			}

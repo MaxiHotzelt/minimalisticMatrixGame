@@ -9,13 +9,13 @@ import javax.swing.JPanel;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 import minimalisticMatrixGame.client.view.panels.impl.Game;
+import minimalisticMatrixGame.client.view.panels.impl.Loading;
 import minimalisticMatrixGame.client.view.panels.impl.Start;
 
 @SuppressWarnings("serial")
 public class Container extends JPanel {
 
 	private static Container container = new Container();
-	private Game game;
 	private String soughtWord;
 
 	private GamestateEnum gamestate;
@@ -53,6 +53,8 @@ public class Container extends JPanel {
 			// müsste eigentlich 3 sein
 			this.setLayout(new GridLayout(4, 1));
 			addPanelComponents(panel);
+		} else if (panel instanceof Loading) {
+			this.gamestate = GamestateEnum.Loading;
 		} else if (panel instanceof Game) {
 			soughtWord = "Apfeltasche";
 			this.requestFocusInWindow();
@@ -78,6 +80,9 @@ public class Container extends JPanel {
 
 		if (gamestate == GamestateEnum.Game) {
 			Game.getInstance().render(g);
+			repaint();
+		} else if (gamestate == GamestateEnum.Loading) {
+			Loading.getInstance().render(g);
 			repaint();
 		}
 	}

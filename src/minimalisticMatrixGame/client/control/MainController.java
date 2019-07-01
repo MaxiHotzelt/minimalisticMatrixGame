@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
 import minimalisticMatrixGame.client.view.Container;
+import minimalisticMatrixGame.client.view.panels.impl.Loading;
 import minimalisticMatrixGame.client.view.panels.impl.Start;
 
 public class MainController implements ActionListener {
@@ -23,7 +24,9 @@ public class MainController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Start.getInstance().getStartGameBtn()) {
 			if (!Start.getInstance().getUsernameTxtFd().getText().isEmpty()) {
-				// not needed
+				GameClient.getInstance().connect();
+
+				Container.getInstance().changePanel(Loading.getInstance());
 			} else {
 				JOptionPane.showMessageDialog(Container.getInstance(), "Geben Sie einen Usernamen ein.",
 						"Ungültiger Username", JOptionPane.INFORMATION_MESSAGE, null);

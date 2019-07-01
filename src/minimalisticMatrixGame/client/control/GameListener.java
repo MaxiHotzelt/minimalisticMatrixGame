@@ -41,6 +41,7 @@ public class GameListener implements KeyListener {
 //		String inputWord = String.valueOf(InputField.getInstance().getInput());
 		if (InputField.getInstance().getInput().equalsIgnoreCase(Container.getInstance().getWord())) {
 			System.out.println("GEWONNEN!!!!!");
+			GameClient.getInstance().setFinishedGame(true);
 		}
 
 	}
