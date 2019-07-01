@@ -59,6 +59,11 @@ public class GameClient extends Thread {
 		}
 	}
 
+	public void gameFinished() {
+		Long time = System.currentTimeMillis();
+		System.out.println(time);
+	}
+
 	public static GameClient getInstance() {
 		return gameClient;
 	}
@@ -70,4 +75,5 @@ public class GameClient extends Thread {
 	public void setGameStarted(boolean gameStarted) {
 		this.gameStarted = gameStarted;
 	}
+
 }

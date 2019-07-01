@@ -51,6 +51,7 @@ public class Container extends JPanel {
 		if (panel instanceof Start) {
 			// Zu testzwecken setzen wir einen weiteren Button hinen -> testButton -> 4
 			// müsste eigentlich 3 sein
+			this.gamestate = GamestateEnum.Start;
 			this.setLayout(new GridLayout(4, 1));
 			addPanelComponents(panel);
 		} else if (panel instanceof Loading) {
@@ -79,6 +80,7 @@ public class Container extends JPanel {
 		super.paintComponent(g);
 
 		if (gamestate == GamestateEnum.Game) {
+
 			Game.getInstance().render(g);
 			repaint();
 		} else if (gamestate == GamestateEnum.Loading) {
@@ -87,7 +89,8 @@ public class Container extends JPanel {
 		}
 	}
 
-	public String getWord() {
-		return this.soughtWord;
+	public GamestateEnum getGamestate() {
+		return this.gamestate;
 	}
+
 }
