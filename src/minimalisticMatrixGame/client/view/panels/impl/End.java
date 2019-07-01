@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
-import minimalisticMatrixGame.client.model.Game;
+import minimalisticMatrixGame.client.model.GameModel;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 
 public class End implements IPanel {
@@ -17,7 +17,7 @@ public class End implements IPanel {
 	}
 
 	public void render(Graphics g) {
-		if (Game.getInstance().isWon()) {
+		if (GameModel.getInstance().isWon()) {
 			g.drawString("You won", 900, 500);
 		} else {
 			g.drawString("You lost", 900, 500);

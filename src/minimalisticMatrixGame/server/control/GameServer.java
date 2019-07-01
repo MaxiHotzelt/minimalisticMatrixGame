@@ -1,16 +1,22 @@
 package minimalisticMatrixGame.server.control;
 
+import minimalisticMatrixGame.client.model.GameModel;
 import minimalisticMatrixGame.server.model.Player;
+import minimalisticMatrixGame.server.utils.WordGatherer;
 
 public class GameServer extends Thread {
 
 	private Player player1;
 	private Player player2;
 
+	private WordGatherer wordgatherer;
+
 	private Player winner;
 	private boolean running = true;
 
 	public GameServer(Player player1, Player player2) {
+
+		wordgatherer = new WordGatherer();
 
 		System.out.println("Game Server created for: \n" + player1.getSocket() + "\n" + player2.getSocket());
 
@@ -32,6 +38,7 @@ public class GameServer extends Thread {
 
 	@Override
 	public void run() {
+		GameModel.getInstance().setWord(wordgatherer.getRandomWord());
 		super.run();
 		player1.start();
 		player2.start();

@@ -6,10 +6,12 @@ import java.awt.GridLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import minimalisticMatrixGame.client.control.MainController;
+import minimalisticMatrixGame.client.model.GameModel;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 import minimalisticMatrixGame.client.view.panels.impl.End;
-import minimalisticMatrixGame.client.view.panels.impl.Game;
+import minimalisticMatrixGame.client.view.panels.impl.GamePanel;
 import minimalisticMatrixGame.client.view.panels.impl.Loading;
 import minimalisticMatrixGame.client.view.panels.impl.Start;
 
@@ -57,11 +59,11 @@ public class Container extends JPanel {
 			addPanelComponents(panel);
 		} else if (panel instanceof Loading) {
 			this.gamestate = GamestateEnum.Loading;
-		} else if (panel instanceof Game) {
-			soughtWord = "Apfeltasche";
+		} else if (panel instanceof GamePanel) {
 			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
-			Game.getInstance().start(soughtWord);
+			GamePanel.getInstance().settings(MainController.getInstance().createMatrixStringList(),
+					GameModel.getInstance().getWord().length());
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
 		} else {
@@ -81,9 +83,14 @@ public class Container extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		if (gamestate == GamestateEnum.Game) {
-			Game.getInstance().render(g);
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (gamestate == GamestateEnum.Game && GamePanel.getInstance().isReady()) {
+			GamePanel.getInstance().render(g);
 			repaint();
 		} else if (gamestate == GamestateEnum.Loading) {
 			Loading.getInstance().render(g);

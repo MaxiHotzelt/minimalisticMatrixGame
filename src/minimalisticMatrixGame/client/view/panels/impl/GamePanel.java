@@ -4,26 +4,24 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.swing.JComponent;
 
 import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.model.InputField;
-import minimalisticMatrixGame.client.model.MatrixChar;
 import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.Container;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 
-public class Game implements IPanel {
+public class GamePanel implements IPanel {
 
-	private static Game game = new Game();
+	private static GamePanel game = new GamePanel();
 
-	private String word;
 	private List<MatrixString> matrixstrings;
 	private InputField inputfield;
+	private boolean ready = false;
 
-	private Game() {
+	private GamePanel() {
 		init();
 	}
 
@@ -31,12 +29,12 @@ public class Game implements IPanel {
 		Container.getInstance().addKeyListener(GameListener.getInstance());
 	}
 
-	public void start(String word) {
-		this.word = word;
+	public void settings(ArrayList<MatrixString> matrixstrings, int wordlength) {
+		this.matrixstrings = matrixstrings;
 		inputfield = InputField.getInstance();
-		inputfield.setLength(word.length());
+		inputfield.setLength(wordlength);
 		inputfield.setPosition(new Point(0, 900));
-		setupStrings();
+		this.ready = true;
 	}
 
 	private void tick() {
@@ -62,26 +60,21 @@ public class Game implements IPanel {
 		}
 	}
 
-	private void setupStrings() {
-		matrixstrings = new ArrayList<>();
-		for (int i = 10; i < 1920; i += MatrixChar.getFont().getSize()) {
-			int yPos = new Random().nextInt(200) + 1;
-			int vel = new Random().nextInt(15) + 2;
-			matrixstrings.add(new MatrixString(word, i, -yPos, vel));
-		}
-	}
-
 	@Override
 	public ArrayList<JComponent> getComponents() {
 		return new ArrayList<>();
 	}
 
-	public static Game getInstance() {
+	public static GamePanel getInstance() {
 		return game;
 	}
 
-	public String getWord() {
-		return this.word;
+	public boolean isReady() {
+		return ready;
+	}
+
+	public void setReady(boolean ready) {
+		this.ready = ready;
 	}
 
 }

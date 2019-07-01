@@ -42,7 +42,7 @@ public class Start implements IPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Container.getInstance().changePanel(Game.getInstance());
+				Container.getInstance().changePanel(GamePanel.getInstance());
 			}
 		});
 	}
