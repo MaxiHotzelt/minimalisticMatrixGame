@@ -20,7 +20,6 @@ public class Game implements IPanel {
 	private static Game game = new Game();
 
 	private String word;
-	private int yPos = -200;
 	private List<MatrixString> matrixstrings;
 	private InputField inputfield;
 

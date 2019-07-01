@@ -28,6 +28,7 @@ public class Startframe extends JFrame {
 	}
 
 	private void config() {
+
 		int width = 1920;
 		int height = 1080;
 
