@@ -12,7 +12,7 @@ public class GameClient extends Thread {
 	private static GameClient gameClient = new GameClient();
 
 	private final int SERVER_PORT = 31337;
-	private final String SERVER_IP = "10.176.51.108";
+	private final String SERVER_IP = "localhost";
 	private Socket socket;
 	private PrintWriter writer;
 	private Scanner reader;
