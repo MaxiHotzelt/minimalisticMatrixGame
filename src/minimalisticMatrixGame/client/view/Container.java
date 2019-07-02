@@ -32,7 +32,7 @@ public class Container extends JPanel {
 
 	private void init() {
 		this.gamestate = GamestateEnum.Start;
-		this.timer = new Timer(16, new ActionListener() {
+		this.timer = new Timer(1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				repaint();
@@ -65,11 +65,10 @@ public class Container extends JPanel {
 		} else if (panel instanceof Loading) {
 			this.gamestate = GamestateEnum.Loading;
 		} else if (panel instanceof Game) {
-			String soughtWord = "Apfeltasche";
 			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
 			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(),
-					minimalisticMatrixGame.client.model.Game.getInstance().getWord().length());
+					6);
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
 			this.setLayout(new GridLayout(2, 1));

@@ -12,7 +12,7 @@ public class GameClient extends Thread {
 	private static GameClient gameClient = new GameClient();
 
 	private final int SERVER_PORT = 31337;
-	private final String SERVER_IP = "localhost";
+	private final String SERVER_IP = "10.176.51.108";
 	private Socket socket;
 	private PrintWriter writer;
 	private Scanner reader;
@@ -30,6 +30,7 @@ public class GameClient extends Thread {
 			this.socket = new Socket(SERVER_IP, SERVER_PORT);
 			this.writer = new PrintWriter(socket.getOutputStream(), true);
 			this.reader = new Scanner(socket.getInputStream());
+			System.out.println("connection success");
 		} catch (IOException e1) {
 			System.err.println(
 					"Couldn't connect to server with \nPort: " + this.SERVER_PORT + " and IP: " + this.SERVER_IP);

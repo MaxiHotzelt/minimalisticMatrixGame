@@ -1,6 +1,5 @@
 package minimalisticMatrixGame.server.control;
 
-import minimalisticMatrixGame.client.model.Game;
 import minimalisticMatrixGame.server.model.Player;
 import minimalisticMatrixGame.server.utils.WordGatherer;
 
@@ -15,9 +14,6 @@ public class GameServer extends Thread {
 	private boolean running = true;
 
 	public GameServer(Player player1, Player player2) {
-
-		wordgatherer = new WordGatherer();
-
 		System.out.println("Game Server created for: \n" + player1.getSocket() + "\n" + player2.getSocket());
 
 		this.player1 = player1;
@@ -25,7 +21,7 @@ public class GameServer extends Thread {
 
 		this.player1.setGameServer(this);
 		this.player2.setGameServer(this);
-
+		
 	}
 
 	// is being called, if a player finished the game
@@ -38,7 +34,6 @@ public class GameServer extends Thread {
 
 	@Override
 	public void run() {
-		Game.getInstance().setWord(wordgatherer.getRandomWord());
 		super.run();
 		player1.start();
 		player2.start();

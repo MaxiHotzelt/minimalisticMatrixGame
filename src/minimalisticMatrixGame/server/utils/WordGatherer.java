@@ -9,9 +9,21 @@ import java.util.Random;
 
 public class WordGatherer {
 
+	private static WordGatherer instance;
+	
+	public static WordGatherer getInstance() {
+		if(instance == null) {
+			instance = new WordGatherer();
+		}
+		return instance;
+	}
+	
 	private ArrayList<String> wordlist;
 
-	public WordGatherer() {
+	
+	
+	private WordGatherer() {
+		System.out.println("WordGatherher created and rdy to read the file!");
 		ReadWordFile();
 	}
 

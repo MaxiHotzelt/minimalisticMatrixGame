@@ -31,6 +31,7 @@ public class Game implements IPanel {
 
 	public void settings(ArrayList<MatrixString> matrixstrings, int wordlength) {
 		this.matrixstrings = matrixstrings;
+		
 		inputfield = InputField.getInstance();
 		inputfield.setLength(wordlength);
 		inputfield.setPosition(new Point(0, 900));

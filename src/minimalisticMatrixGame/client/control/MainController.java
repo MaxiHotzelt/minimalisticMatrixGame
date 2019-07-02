@@ -39,7 +39,9 @@ public class MainController implements ActionListener {
 
 	public ArrayList<MatrixString> createMatrixStringList() {
 		ArrayList<MatrixString> matrixstrings = new ArrayList<>();
-		String word = minimalisticMatrixGame.client.model.Game.getInstance().getWord();
+		//Da wir das Wort noch nicht richtig übergeben können, wird zur testwecken ein festes wort genommen!
+//		String word = minimalisticMatrixGame.client.model.Game.getInstance().getWord();
+		String word = "Apfeltasche";
 		for (int i = 10; i < 1920; i += MatrixChar.getFont().getSize()) {
 			int yPos = new Random().nextInt(200) + 1;
 			int vel = new Random().nextInt(15) + 2;
