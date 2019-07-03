@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import minimalisticMatrixGame.client.control.MainController;
 import minimalisticMatrixGame.client.model.Game;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 
@@ -33,6 +34,8 @@ public class End implements IPanel {
 
 	private void config() {
 		this.componentHolder.setSize(500, 200);
+		this.playAgainBtn.addActionListener(MainController.getInstance());
+		this.quitBtn.addActionListener(MainController.getInstance());
 	}
 
 	private void build() {
@@ -43,9 +46,9 @@ public class End implements IPanel {
 
 	public void render(Graphics g) {
 		if (Game.getInstance().isWon()) {
-			g.drawString("You won", 900, 500);
+			g.drawString("You won", 900, 800);
 		} else {
-			g.drawString("You lost", 900, 500);
+			g.drawString("You lost", 900, 800);
 		}
 	}
 
@@ -58,6 +61,14 @@ public class End implements IPanel {
 
 	public static End getInstance() {
 		return end;
+	}
+
+	public JButton getPlayAgainBtn() {
+		return playAgainBtn;
+	}
+
+	public JButton getQuitBtn() {
+		return quitBtn;
 	}
 
 }

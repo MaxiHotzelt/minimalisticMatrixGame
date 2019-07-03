@@ -17,6 +17,7 @@ public class Player extends Thread {
 	private boolean sendEnd = false;
 	private boolean finishedGame = false;
 	private boolean endGame = false;
+	private boolean gameRunning = true;
 
 	private boolean won = false;
 
@@ -49,12 +50,12 @@ public class Player extends Thread {
 		super.run();
 
 		this.setInitGame(true);
-		while (true) {
+		while (gameRunning) {
 			if (initGame) {
-				this.writer.println("word#"+gameServer.getWord());
+				this.writer.println("word#" + gameServer.getWord());
 				this.writer.println("start game");
 				this.writer.flush();
-				
+
 				this.reader.hasNext();
 				MessageHandler.getInstance().handleMessage(this.reader.nextLine(), this);
 
@@ -73,6 +74,8 @@ public class Player extends Thread {
 				} else {
 					this.writer.println("end game lost");
 				}
+
+				gameRunning = false;
 			}
 		}
 

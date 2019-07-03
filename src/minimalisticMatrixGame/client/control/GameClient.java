@@ -17,11 +17,11 @@ public class GameClient extends Thread {
 	private PrintWriter writer;
 	private Scanner reader;
 
-	private boolean finishedGame;
+	private boolean wordGuessed;
 	private boolean gameRunning;
 
 	private GameClient() {
-		finishedGame = false;
+		wordGuessed = false;
 		gameRunning = false;
 	}
 
@@ -48,8 +48,8 @@ public class GameClient extends Thread {
 				MessageHandler.getInstance().handleMessage(this.reader.nextLine());
 
 				if (gameRunning) {
-					while (!finishedGame) {
-						// do nothing
+					while (!wordGuessed) {
+						// do nothing and wait until the player has guessed the word
 					}
 
 					this.writer.println("done");
@@ -62,17 +62,12 @@ public class GameClient extends Thread {
 		}
 	}
 
-	public void gameFinished() {
-		Long time = System.currentTimeMillis();
-		System.out.println(time);
-	}
-
 	public static GameClient getInstance() {
 		return gameClient;
 	}
 
 	public void setFinishedGame(boolean finishedGame) {
-		this.finishedGame = finishedGame;
+		this.wordGuessed = finishedGame;
 	}
 
 	public void setGameRunning(boolean gameRunning) {

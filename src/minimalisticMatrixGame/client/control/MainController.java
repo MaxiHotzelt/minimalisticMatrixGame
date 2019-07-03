@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import minimalisticMatrixGame.client.model.MatrixChar;
 import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.Container;
+import minimalisticMatrixGame.client.view.panels.impl.End;
 import minimalisticMatrixGame.client.view.panels.impl.Loading;
 import minimalisticMatrixGame.client.view.panels.impl.Start;
 
@@ -34,12 +35,17 @@ public class MainController implements ActionListener {
 				JOptionPane.showMessageDialog(Container.getInstance(), "Geben Sie einen Usernamen ein.",
 						"Ungültiger Username", JOptionPane.INFORMATION_MESSAGE, null);
 			}
+		} else if (e.getSource() == End.getInstance().getPlayAgainBtn()) {
+			Container.getInstance().changePanel(Start.getInstance());
+		} else if (e.getSource() == End.getInstance().getQuitBtn()) {
+			System.exit(0);
 		}
 	}
 
 	public ArrayList<MatrixString> createMatrixStringList(String word) {
 		ArrayList<MatrixString> matrixstrings = new ArrayList<>();
-		//Da wir das Wort noch nicht richtig �bergeben k�nnen, wird zur testwecken ein festes wort genommen!
+		// Da wir das Wort noch nicht richtig �bergeben k�nnen, wird zur testwecken ein
+		// festes wort genommen!
 //		String word = minimalisticMatrixGame.client.model.Game.getInstance().getWord();
 //		String word = "Apfeltasche";
 		for (int i = 10; i < 1920; i += MatrixChar.getFont().getSize()) {
