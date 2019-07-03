@@ -33,18 +33,6 @@ public class Player extends Thread {
 		}
 	}
 
-	public Scanner getReader() {
-		return reader;
-	}
-
-	public PrintWriter getWriter() {
-		return writer;
-	}
-
-	public Socket getSocket() {
-		return socket;
-	}
-
 	@Override
 	public void run() {
 		super.run();
@@ -64,7 +52,7 @@ public class Player extends Thread {
 			} else if (finishedGame) {
 				// this only should be called once - right after the word is guessed
 				if (!sendEnd) {
-					gameServer.finishedGame(this);
+					gameServer.guessedWord(this);
 					sendEnd = true;
 				}
 			}
@@ -103,6 +91,18 @@ public class Player extends Thread {
 
 	public void setWon(boolean won) {
 		this.won = won;
+	}
+
+	public Scanner getReader() {
+		return reader;
+	}
+
+	public PrintWriter getWriter() {
+		return writer;
+	}
+
+	public Socket getSocket() {
+		return socket;
 	}
 
 }

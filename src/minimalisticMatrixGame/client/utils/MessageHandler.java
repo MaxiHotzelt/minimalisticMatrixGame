@@ -2,7 +2,7 @@ package minimalisticMatrixGame.client.utils;
 
 import java.util.Locale;
 
-import minimalisticMatrixGame.client.control.GameClient;
+import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.view.Container;
 import minimalisticMatrixGame.client.view.panels.impl.End;
 import minimalisticMatrixGame.client.view.panels.impl.Game;
@@ -16,20 +16,20 @@ public class MessageHandler {
 	}
 
 	public void handleMessage(String message) {
-		System.out.println(message);
 		if (message.toLowerCase(Locale.getDefault()).contains("start game")) {
 			Container.getInstance().changePanel(Game.getInstance());
-			GameClient.getInstance().setGameRunning(true);
+			GameListener.getInstance().getGame().getGameClient().setGameRunning(true);
 		} else if (message.toLowerCase(Locale.getDefault()).contains("end game")) {
 			if (message.contains("won")) {
-				minimalisticMatrixGame.client.model.Game.getInstance().setWon(true);
+				GameListener.getInstance().getGame().setWon(true);
 			} else {
-				minimalisticMatrixGame.client.model.Game.getInstance().setWon(false);
+				GameListener.getInstance().getGame().setWon(false);
 			}
 
 			Container.getInstance().changePanel(End.getInstance());
+
 		} else if (message.toLowerCase(Locale.getDefault()).contains("word")) {
-			minimalisticMatrixGame.client.model.Game.getInstance().setWord(message.substring(5));
+			GameListener.getInstance().getGame().setWord(message.substring(5));
 		}
 	}
 

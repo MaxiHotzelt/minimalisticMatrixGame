@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.control.MainController;
 import minimalisticMatrixGame.client.utils.GamestateEnum;
 import minimalisticMatrixGame.client.view.panels.IPanel;
@@ -69,10 +70,8 @@ public class Container extends JPanel {
 			this.setBackground(Color.black);
 			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
-			Game.getInstance().settings(
-					MainController.getInstance()
-							.createMatrixStringList(),
-					minimalisticMatrixGame.client.model.Game.getInstance().getWord().length());
+			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(),
+					GameListener.getInstance().getGame().getWord().length());
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
 			this.setLayout(new GridLayout(2, 1));

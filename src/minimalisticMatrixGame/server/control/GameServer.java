@@ -23,10 +23,19 @@ public class GameServer extends Thread {
 		this.player1.setGameServer(this);
 		this.player2.setGameServer(this);
 
+		if (!this.isAlive()) {
+			this.start();
+		}
+
 	}
 
-	// is being called, if a player finished the game
-	public void finishedGame(Player player) {
+	/**
+	 * This method is being called from a player, if he guessed the word. If he is
+	 * the first to call this method, he is set as winner.
+	 * 
+	 * @param player - player, who guessed the word
+	 */
+	public void guessedWord(Player player) {
 		if (winner == null) {
 			winner = player;
 			player.setWon(true);

@@ -7,27 +7,33 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * This class
+ * 
+ * @author hotzelm & danzk
+ * @version 1.0
+ */
 public class WordGatherer {
 
-	private static WordGatherer instance;
+	/**
+	 * A singleton is used here, because there should be only one instance of this
+	 * class.
+	 */
+	private static WordGatherer wordGatherer;
 
-	public static WordGatherer getInstance() {
-		if (instance == null) {
-			instance = new WordGatherer();
-		}
-		return instance;
-	}
-
+	/**
+	 * All words from the textfile.
+	 */
 	private ArrayList<String> wordlist;
 
 	private WordGatherer() {
 		System.out.println("WordGatherher created and rdy to read the file!");
-		ReadWordFile();
+		readWordFile();
 	}
 
-	private void ReadWordFile() {
+	private void readWordFile() {
 		wordlist = new ArrayList<>();
-		try (FileReader reader = new FileReader("src/minimalisticMatrixGame/server/resource/wortliste.txt")){
+		try (FileReader reader = new FileReader("src/minimalisticMatrixGame/server/resource/wortliste.txt")) {
 			BufferedReader br = new BufferedReader(reader);
 			String line;
 			while ((line = br.readLine()) != null) {
@@ -53,6 +59,13 @@ public class WordGatherer {
 	 */
 	public String getRandomWord() {
 		return wordlist.get(new Random().nextInt(wordlist.size()));
+	}
+
+	public static WordGatherer getInstance() {
+		if (wordGatherer == null) {
+			wordGatherer = new WordGatherer();
+		}
+		return wordGatherer;
 	}
 
 }

@@ -7,7 +7,6 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
-import minimalisticMatrixGame.client.model.Game;
 import minimalisticMatrixGame.client.model.MatrixChar;
 import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.Container;
@@ -30,7 +29,7 @@ public class MainController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Start.getInstance().getStartGameBtn()) {
 			if (!Start.getInstance().getUsernameTxtFd().getText().isEmpty()) {
-				GameClient.getInstance().connect();
+				GameListener.getInstance().createNewGame();
 				Container.getInstance().changePanel(Loading.getInstance());
 			} else {
 				JOptionPane.showMessageDialog(Container.getInstance(), "Geben Sie einen Usernamen ein.",
@@ -44,7 +43,7 @@ public class MainController implements ActionListener {
 	}
 
 	public ArrayList<MatrixString> createMatrixStringList() {
-		String word = Game.getInstance().getWord();
+		String word = GameListener.getInstance().getGame().getWord();
 		ArrayList<MatrixString> matrixstrings = new ArrayList<>();
 		for (int i = 10; i < 1920; i += MatrixChar.getFont().getSize()) {
 			int yPos = new Random().nextInt(200) + 1;

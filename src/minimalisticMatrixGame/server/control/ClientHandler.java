@@ -15,7 +15,7 @@ public class ClientHandler extends Thread {
 	}
 
 	public void addClient(Socket client) {
-		System.out.println(client);
+		System.out.println("New Client: \n" + client);
 		waitingPool.add(new Player(client));
 		if (!this.isAlive()) {
 			this.start();
@@ -25,12 +25,17 @@ public class ClientHandler extends Thread {
 	@Override
 	public void run() {
 		final int MAX_PLAYERS_PER_GAME = 2;
-
 		while (true) {
 			if (waitingPool.size() >= MAX_PLAYERS_PER_GAME) {
-				new GameServer(waitingPool.get(0), waitingPool.get(1)).start();
+				new GameServer(waitingPool.get(0), waitingPool.get(1));
 				waitingPool.remove(1);
 				waitingPool.remove(0);
+			}
+			
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}

@@ -21,7 +21,6 @@ public class Server {
 		try (ServerSocket server = new ServerSocket(port)) {
 			while (true) {
 				ClientHandler.getInstance().addClient(server.accept());
-				System.out.println("ay");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

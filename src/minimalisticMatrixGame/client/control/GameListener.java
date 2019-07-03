@@ -11,12 +11,19 @@ import minimalisticMatrixGame.client.view.Container;
 public class GameListener implements KeyListener {
 
 	private static GameListener gameListener = new GameListener();
+	private Game game;
 
 	private GameListener() {
 	}
 
+	public void createNewGame() {
+		this.game = new Game();
+		this.game.getGameClient().connect();
+	}
+
 	@Override
 	public void keyTyped(KeyEvent e) {
+		// not needed atm.
 	}
 
 	@Override
@@ -30,27 +37,27 @@ public class GameListener implements KeyListener {
 			} else if (String.valueOf(e.getKeyChar()).matches(("[a-zA-ZäÄöÖüÜß]"))) {
 				InputField.getInstance().addChar(e.getKeyChar());
 			}
-			// nach jedem Tastendruck muss der Controller das inputfield nehmen und dieses
-			// mit dem lösungswort abprüfen
 		}
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
+		// not needed atm.
 	}
 
 	private void checkWords() {
-		if (InputField.getInstance().getInput().equalsIgnoreCase(Game.getInstance().getWord())) {
-			System.out.println("GEWONNEN!!!!!");
-			GameClient.getInstance().setFinishedGame(true);
+		if (InputField.getInstance().getInput().equalsIgnoreCase(this.game.getWord())) {
+			this.game.getGameClient().setFinishedGame(true);
 		}
 
 	}
 
 	public static GameListener getInstance() {
 		return gameListener;
+	}
+
+	public Game getGame() {
+		return game;
 	}
 }

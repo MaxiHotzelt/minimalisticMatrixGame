@@ -8,8 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
 
+import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.control.MainController;
-import minimalisticMatrixGame.client.model.Game;
 import minimalisticMatrixGame.client.view.panels.IPanel;
 
 public class End implements IPanel {
@@ -45,7 +45,7 @@ public class End implements IPanel {
 	}
 
 	public void render(Graphics g) {
-		if (Game.getInstance().isWon()) {
+		if (GameListener.getInstance().getGame().isWon()) {
 			g.drawString("You won", 900, 800);
 		} else {
 			g.drawString("You lost", 900, 800);
