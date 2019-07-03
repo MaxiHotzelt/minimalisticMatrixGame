@@ -28,9 +28,10 @@ public class ClientHandler extends Thread {
 
 		while (true) {
 			if (waitingPool.size() >= MAX_PLAYERS_PER_GAME) {
-				new GameServer(waitingPool.get(0), waitingPool.get(1)).start();
-				waitingPool.remove(1);
-				waitingPool.remove(0);
+					GameServer game = new GameServer(waitingPool.get(0), waitingPool.get(1));
+					waitingPool.remove(1);
+					waitingPool.remove(0);
+					game.start();
 			}
 		}
 	}
