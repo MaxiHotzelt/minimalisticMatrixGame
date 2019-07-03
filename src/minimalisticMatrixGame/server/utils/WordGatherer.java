@@ -10,18 +10,16 @@ import java.util.Random;
 public class WordGatherer {
 
 	private static WordGatherer instance;
-	
+
 	public static WordGatherer getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new WordGatherer();
 		}
 		return instance;
 	}
-	
+
 	private ArrayList<String> wordlist;
 
-	
-	
 	private WordGatherer() {
 		System.out.println("WordGatherher created and rdy to read the file!");
 		ReadWordFile();
@@ -36,11 +34,15 @@ public class WordGatherer {
 			while ((line = br.readLine()) != null) {
 				addWortToList(line);
 			}
+
+			br.close();
+			reader.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+
 	}
 
 	private void addWortToList(String word) {

@@ -1,14 +1,11 @@
 package minimalisticMatrixGame.server.control;
 
 import minimalisticMatrixGame.server.model.Player;
-import minimalisticMatrixGame.server.utils.WordGatherer;
 
 public class GameServer extends Thread {
 
 	private Player player1;
 	private Player player2;
-
-	private WordGatherer wordgatherer;
 
 	private Player winner;
 	private boolean running = true;
@@ -21,7 +18,7 @@ public class GameServer extends Thread {
 
 		this.player1.setGameServer(this);
 		this.player2.setGameServer(this);
-		
+
 	}
 
 	// is being called, if a player finished the game

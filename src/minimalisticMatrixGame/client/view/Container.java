@@ -32,7 +32,7 @@ public class Container extends JPanel {
 
 	private void init() {
 		this.gamestate = GamestateEnum.Start;
-		this.timer = new Timer(1000, new ActionListener() {
+		this.timer = new Timer(16, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent evt) {
 				repaint();
@@ -67,8 +67,7 @@ public class Container extends JPanel {
 		} else if (panel instanceof Game) {
 			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
-			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(),
-					6);
+			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(), 6);
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
 			this.setLayout(new GridLayout(2, 1));
