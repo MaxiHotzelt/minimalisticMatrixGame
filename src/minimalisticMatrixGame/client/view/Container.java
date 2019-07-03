@@ -71,7 +71,7 @@ public class Container extends JPanel {
 			gamestate = GamestateEnum.Game;
 			Game.getInstance().settings(
 					MainController.getInstance()
-							.createMatrixStringList(minimalisticMatrixGame.client.model.Game.getInstance().getWord()),
+							.createMatrixStringList(),
 					minimalisticMatrixGame.client.model.Game.getInstance().getWord().length());
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
