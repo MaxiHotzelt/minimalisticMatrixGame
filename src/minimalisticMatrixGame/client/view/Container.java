@@ -1,5 +1,6 @@
 package minimalisticMatrixGame.client.view;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -57,6 +58,7 @@ public class Container extends JPanel {
 	}
 
 	public void changePanel(IPanel panel) {
+		this.setBackground(null);
 		this.removeAll();
 		if (panel instanceof Start) {
 			gamestate = GamestateEnum.Start;
@@ -64,11 +66,12 @@ public class Container extends JPanel {
 		} else if (panel instanceof Loading) {
 			this.gamestate = GamestateEnum.Loading;
 		} else if (panel instanceof Game) {
+			this.setBackground(Color.black);
 			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
 			Game.getInstance().settings(
 					MainController.getInstance()
-							.createMatrixStringList(minimalisticMatrixGame.client.model.Game.getInstance().getWord()),
+							.createMatrixStringList(),
 					minimalisticMatrixGame.client.model.Game.getInstance().getWord().length());
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;

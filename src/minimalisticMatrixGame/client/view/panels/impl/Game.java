@@ -34,7 +34,6 @@ public class Game implements IPanel {
 		
 		inputfield = InputField.getInstance();
 		inputfield.setLength(wordlength);
-		inputfield.setPosition(new Point(0, 900));
 		this.ready = true;
 	}
 
@@ -52,7 +51,6 @@ public class Game implements IPanel {
 		}
 		tick();
 		drawMatrixWord(g);
-		drawInputfield(g);
 		inputfield.render(g);
 	}
 
@@ -62,9 +60,6 @@ public class Game implements IPanel {
 		}
 	}
 	
-	private void drawInputfield(Graphics g) {
-//		g.drawRect(inputfield., y, width, height);
-	}
 
 	@Override
 	public ArrayList<JComponent> getComponents() {

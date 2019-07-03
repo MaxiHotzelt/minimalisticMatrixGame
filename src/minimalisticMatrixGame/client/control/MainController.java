@@ -7,6 +7,7 @@ import java.util.Random;
 
 import javax.swing.JOptionPane;
 
+import minimalisticMatrixGame.client.model.Game;
 import minimalisticMatrixGame.client.model.MatrixChar;
 import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.Container;
@@ -42,12 +43,9 @@ public class MainController implements ActionListener {
 		}
 	}
 
-	public ArrayList<MatrixString> createMatrixStringList(String word) {
+	public ArrayList<MatrixString> createMatrixStringList() {
+		String word = Game.getInstance().getWord();
 		ArrayList<MatrixString> matrixstrings = new ArrayList<>();
-		// Da wir das Wort noch nicht richtig �bergeben k�nnen, wird zur testwecken ein
-		// festes wort genommen!
-//		String word = minimalisticMatrixGame.client.model.Game.getInstance().getWord();
-//		String word = "Apfeltasche";
 		for (int i = 10; i < 1920; i += MatrixChar.getFont().getSize()) {
 			int yPos = new Random().nextInt(200) + 1;
 			int vel = new Random().nextInt(15) + 2;
