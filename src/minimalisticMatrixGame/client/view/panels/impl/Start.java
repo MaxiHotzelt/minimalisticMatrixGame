@@ -20,7 +20,6 @@ public class Start implements IPanel {
 	private JLabel usernameLbl;
 	private JTextField usernameTxtFd;
 	private JButton startGameBtn;
-	private JButton testButton;
 
 	private Start() {
 		init();
@@ -29,7 +28,6 @@ public class Start implements IPanel {
 	}
 
 	private void init() {
-		testButton = new JButton("Start for Test");
 		usernameLbl = new JLabel("Username: ");
 		usernameTxtFd = new JTextField(20);
 		startGameBtn = new JButton("Start Game");
@@ -38,13 +36,6 @@ public class Start implements IPanel {
 
 	private void config() {
 		this.startGameBtn.addActionListener(MainController.getInstance());
-		this.testButton.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Container.getInstance().changePanel(Game.getInstance());
-			}
-		});
 	}
 
 	private void build() {
@@ -65,7 +56,6 @@ public class Start implements IPanel {
 		comp.add(this.usernameLbl);
 		comp.add(this.usernameTxtFd);
 		comp.add(this.startGameBtn);
-		comp.add(this.testButton);
 
 		return comp;
 	}

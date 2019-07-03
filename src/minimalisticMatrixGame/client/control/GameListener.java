@@ -27,7 +27,7 @@ public class GameListener implements KeyListener {
 				InputField.getInstance().deleteLastChar();
 			} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 				checkWords();
-			} else if (String.valueOf(e.getKeyChar()).matches(("[a-zA-Z]"))) {
+			} else if (String.valueOf(e.getKeyChar()).matches(("[a-zA-ZäÄöÖüÜß]"))) {
 				InputField.getInstance().addChar(e.getKeyChar());
 			}
 			// nach jedem Tastendruck muss der Controller das inputfield nehmen und dieses

@@ -58,17 +58,16 @@ public class Container extends JPanel {
 
 	public void changePanel(IPanel panel) {
 		this.removeAll();
-
 		if (panel instanceof Start) {
 			gamestate = GamestateEnum.Start;
-			this.setLayout(new GridLayout(4, 1));
+			this.setLayout(new GridLayout(3, 1));
 		} else if (panel instanceof Loading) {
 			this.gamestate = GamestateEnum.Loading;
 		} else if (panel instanceof Game) {
 			this.requestFocusInWindow();
 			gamestate = GamestateEnum.Game;
-			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(),
-					11);
+			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(minimalisticMatrixGame.client.model.Game.getInstance().getWord()),
+					minimalisticMatrixGame.client.model.Game.getInstance().getWord().length());
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
 			this.setLayout(new GridLayout(2, 1));
@@ -84,7 +83,9 @@ public class Container extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		
 		super.paintComponent(g);
+		
 		if (gamestate == GamestateEnum.Game && Game.getInstance().isReady()) {
 			Game.getInstance().render(g);
 		} else if (gamestate == GamestateEnum.Loading) {
