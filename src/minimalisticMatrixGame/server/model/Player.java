@@ -51,9 +51,10 @@ public class Player extends Thread {
 		this.setInitGame(true);
 		while (true) {
 			if (initGame) {
+				this.writer.println("word#"+gameServer.getWord());
 				this.writer.println("start game");
 				this.writer.flush();
-
+				
 				this.reader.hasNext();
 				MessageHandler.getInstance().handleMessage(this.reader.nextLine(), this);
 

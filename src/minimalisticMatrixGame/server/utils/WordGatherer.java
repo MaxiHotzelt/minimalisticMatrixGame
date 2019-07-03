@@ -27,8 +27,7 @@ public class WordGatherer {
 
 	private void ReadWordFile() {
 		wordlist = new ArrayList<>();
-		try {
-			FileReader reader = new FileReader("src/minimalisticMatrixGame/server/resource/wortliste.txt");
+		try (FileReader reader = new FileReader("src/minimalisticMatrixGame/server/resource/wortliste.txt")){
 			BufferedReader br = new BufferedReader(reader);
 			String line;
 			while ((line = br.readLine()) != null) {
