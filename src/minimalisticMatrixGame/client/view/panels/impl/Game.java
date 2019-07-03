@@ -19,7 +19,7 @@ public class Game implements IPanel {
 
 	private List<MatrixString> matrixstrings;
 	private InputField inputfield;
-	private boolean ready = false;
+//	private boolean ready = false;
 
 	private Game() {
 		init();
@@ -34,7 +34,7 @@ public class Game implements IPanel {
 		
 		inputfield = InputField.getInstance();
 		inputfield.setLength(wordlength);
-		this.ready = true;
+//		this.ready = true;
 	}
 
 	private void tick() {
@@ -70,12 +70,12 @@ public class Game implements IPanel {
 		return game;
 	}
 
-	public boolean isReady() {
-		return ready;
-	}
-
-	public void setReady(boolean ready) {
-		this.ready = ready;
-	}
+//	public boolean isReady() {
+//		return ready;
+//	}
+//
+//	public void setReady(boolean ready) {
+//		this.ready = ready;
+//	}
 
 }

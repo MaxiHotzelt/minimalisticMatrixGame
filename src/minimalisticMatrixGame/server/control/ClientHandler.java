@@ -31,7 +31,7 @@ public class ClientHandler extends Thread {
 				waitingPool.remove(1);
 				waitingPool.remove(0);
 			}
-			
+
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {

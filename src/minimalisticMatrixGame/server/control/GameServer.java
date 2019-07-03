@@ -8,6 +8,7 @@ public class GameServer extends Thread {
 	private Player player1;
 	private Player player2;
 
+	
 	private String word;
 
 	private Player winner;
@@ -22,6 +23,10 @@ public class GameServer extends Thread {
 
 		this.player1.setGameServer(this);
 		this.player2.setGameServer(this);
+		
+		if(!this.isAlive()) {
+			this.start();
+		}
 
 		if (!this.isAlive()) {
 			this.start();
