@@ -34,7 +34,6 @@ public class Game implements IPanel {
 		
 		inputfield = InputField.getInstance();
 		inputfield.setLength(wordlength);
-		inputfield.setPosition(new Point(0, 900));
 		this.ready = true;
 	}
 
