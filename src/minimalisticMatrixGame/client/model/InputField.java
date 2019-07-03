@@ -23,11 +23,11 @@ public class InputField {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(point.x-30, point.y+10, (int)rectDimension.getHeight(), (int)rectDimension.getWidth());
+		g.setColor(Color.yellow);
+		g.fillRect(point.x-18, point.y+10, (int)rectDimension.getHeight(), (int)rectDimension.getWidth());
 		g.setColor(Color.red);
 		for (int i = 0; i < chars.length; i++) {
-			g.drawString("" + chars[i], (int) point.getX() + (spaceBetweenChars * i), (int) point.getY()+50);
+			g.drawString("" + chars[i], (int) point.getX() + (spaceBetweenChars * i), (int) point.getY()+45);
 		}
 	}
 
@@ -37,7 +37,6 @@ public class InputField {
 
 	public String getInput() {
 		return String.valueOf(chars);
-//		return Arrays.toString(chars);
 	}
 
 	public void setLength(int length) {
@@ -52,7 +51,7 @@ public class InputField {
 		int maxSpace = spaceBetweenChars*chars.length;
 		int xPos =  (Startframe.getInstance().getWidth()/2) - (maxSpace/2)^2 ;
 		this.point = new Point(xPos, 900);
-		this.rectDimension = new Dimension(50,maxSpace+30);
+		this.rectDimension = new Dimension(50,maxSpace+25);
 	}
 
 	public static InputField getInstance() {

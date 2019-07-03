@@ -91,7 +91,9 @@ public class Container extends JPanel {
 
 		super.paintComponent(g);
 
-		if (gamestate == GamestateEnum.Game && Game.getInstance().isReady()) {
+		if (gamestate == GamestateEnum.Game ) {
+//			Game.getInstance().isReady()) {
+//		}
 			Game.getInstance().render(g);
 		} else if (gamestate == GamestateEnum.Loading) {
 			Loading.getInstance().render(g);
