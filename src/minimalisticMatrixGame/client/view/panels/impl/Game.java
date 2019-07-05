@@ -1,7 +1,6 @@
 package minimalisticMatrixGame.client.view.panels.impl;
 
 import java.awt.Graphics;
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,8 @@ public class Game implements IPanel {
 
 	private static Game game = new Game();
 
-	private List<MatrixString> matrixstrings;
-	private InputField inputfield;
-//	private boolean ready = false;
+	private List<MatrixString> matrixStrings;
+	private InputField inputField;
 
 	private Game() {
 		init();
@@ -30,36 +28,24 @@ public class Game implements IPanel {
 	}
 
 	public void settings(List<MatrixString> matrixstrings, int wordlength) {
-		this.matrixstrings = matrixstrings;
-		
-		inputfield = InputField.getInstance();
-		inputfield.settupNewGame(wordlength);
-//		this.ready = true;
+		this.matrixStrings = matrixstrings;
+
+		inputField = InputField.getInstance();
+		inputField.settupNewGame(wordlength);
 	}
 
-	private void tick() {
-		for (MatrixString s : matrixstrings) {
-			s.tick();
+	public void start() {
+		for (MatrixString s : matrixStrings) {
+			s.start();
 		}
 	}
 
 	public void render(Graphics g) {
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		tick();
-		drawMatrixWord(g);
-		inputfield.render(g);
-	}
-
-	private void drawMatrixWord(Graphics g) {
-		for (MatrixString s : matrixstrings) {
+		for (MatrixString s : matrixStrings) {
 			s.render(g);
 		}
+		inputField.render(g);
 	}
-	
 
 	@Override
 	public ArrayList<JComponent> getComponents() {
@@ -70,12 +56,8 @@ public class Game implements IPanel {
 		return game;
 	}
 
-//	public boolean isReady() {
-//		return ready;
-//	}
-//
-//	public void setReady(boolean ready) {
-//		this.ready = ready;
-//	}
+	public List<MatrixString> getMatrixStrings() {
+		return matrixStrings;
+	}
 
 }

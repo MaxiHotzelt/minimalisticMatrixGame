@@ -3,29 +3,28 @@ package minimalisticMatrixGame.client.model;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Random;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
-import jdk.nashorn.internal.runtime.regexp.joni.Matcher;
+import minimalisticMatrixGame.client.utils.GamestateEnum;
+import minimalisticMatrixGame.client.view.Container;
 
-public class MatrixString {
+public class MatrixString extends Thread {
 	private MatrixChar[] chars;
-	private int yVelocity;
 	private String charPatterForChangingXPos = "iltrfj";
+	private int yVelocity = new Random().nextInt(17) + 5;
 
-	public MatrixString(String word, int xPos, int yPos, int yVelocity) {
+	public MatrixString(String word, int xPos, int yPos) {
 		word = changeCharPlace(word);
-		this.yVelocity = yVelocity;
 		chars = new MatrixChar[word.length()];
-		createString(word, xPos, yPos, yVelocity);
+
+		createString(word, xPos, yPos);
 	}
 
-	private void createString(String word, int xPos, int yPos, int yVelocity) {
+	private void createString(String word, int xPos, int yPos) {
 		for (int i = 0; i < word.length(); i++) {
-			//Short if else
-			chars [i] = charPatterForChangingXPos.contains(""+word.charAt(i)) ? 
-					new MatrixChar(new Point(xPos+4, yPos - (30 * i)), word.charAt(i), yVelocity) : 
-					new MatrixChar(new Point(xPos, yPos - (30 * i)), word.charAt(i), yVelocity);
+			// Short if else
+			chars[i] = charPatterForChangingXPos.contains("" + word.charAt(i))
+					? new MatrixChar(new Point(xPos + 4, yPos - (30 * i)), word.charAt(i))
+					: new MatrixChar(new Point(xPos, yPos - (30 * i)), word.charAt(i));
 		}
 	}
 
@@ -35,11 +34,8 @@ public class MatrixString {
 		}
 	}
 
-	public void tick() {
-		for (int i = 0; i < chars.length; i++) {
-			chars[i].tick();
-		}
-		
+	private void changeCharPlace() {
+		// Not Implemented
 	}
 
 	private String changeCharPlace(String word) {
@@ -49,12 +45,28 @@ public class MatrixString {
 			word = word.replaceFirst(rdChar + "", "");
 			sb.append(rdChar);
 		}
-			return sb.toString();
-				// Not Implemented
+		return sb.toString();
+		// Not Implemented
 	}
 
-	public int getVelocity() {
-		return this.yVelocity;
+	@Override
+	public void run() {
+		super.run();
+
+		while (Container.getInstance().getGamestate() == GamestateEnum.Game) {
+
+			for (MatrixChar c : chars) {
+				c.move();
+			}
+
+			try {
+				Thread.sleep(this.yVelocity);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 	}
-	
+
 }
