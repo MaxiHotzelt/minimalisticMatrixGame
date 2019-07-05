@@ -27,7 +27,6 @@ public class WordGatherer {
 	private ArrayList<String> wordlist;
 
 	private WordGatherer() {
-		System.out.println("WordGatherher created and rdy to read the file!");
 		readWordFile();
 	}
 

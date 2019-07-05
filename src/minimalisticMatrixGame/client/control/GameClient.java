@@ -5,10 +5,9 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-import minimalisticMatrixGame.client.utils.MessageHandler;
-
 public class GameClient extends Thread {
 
+	private Thread in;
 	private final int SERVER_PORT = 31337;
 	private final String SERVER_IP = "localhost";
 	private Socket socket;
@@ -43,6 +42,8 @@ public class GameClient extends Thread {
 				this.start();
 			}
 
+			this.writer = new PrintWriter(this.socket.getOutputStream(), true);
+			in = new Thread(new StreamReader(this.socket));
 			return true;
 		} catch (IOException e1) {
 			System.err.println(
@@ -55,27 +56,23 @@ public class GameClient extends Thread {
 
 	@Override
 	public void run() {
+		in.start();
 		super.run();
-		while (true) {
-			while (this.reader.hasNextLine()) {
-				MessageHandler.getInstance().handleMessage(this.reader.nextLine());
-				if (gameRunning) {
-					while (!wordGuessed) {
-						// do nothing and wait until the player has guessed the word
-					}
-
-					this.writer.println("done");
-					this.writer.flush();
-
-					// is set to false, because the game has been started
-					gameRunning = false;
-				}
-
+		do {
+			try {
+				this.sleep(1);
+			} catch (Exception e) {
+				// TODO: handle exception
 			}
-		}
+		} while (!wordGuessed);
+		System.out.println("wort wurde erraten :) ");
+		// do nothing and wait until the player has guessed the word
+		this.writer.println("done");
+		gameRunning = false;
 	}
 
 	public void setFinishedGame(boolean finishedGame) {
+		System.out.println("Wort wurde gefunden -> Setze wordGuessed auf true!");
 		this.wordGuessed = finishedGame;
 	}
 

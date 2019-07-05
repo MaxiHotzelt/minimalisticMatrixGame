@@ -69,9 +69,9 @@ public class Container extends JPanel {
 		} else if (panel instanceof Game) {
 			this.setBackground(Color.black);
 			this.requestFocusInWindow();
-			gamestate = GamestateEnum.Game;
 			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(),
 					GameListener.getInstance().getGame().getWord().length());
+			gamestate = GamestateEnum.Game;
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
 			this.setLayout(new GridLayout(2, 1));
