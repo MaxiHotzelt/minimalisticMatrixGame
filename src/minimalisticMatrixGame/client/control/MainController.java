@@ -51,7 +51,6 @@ public class MainController implements ActionListener {
 
 	public void startGame() {
 		Container.getInstance().changePanel(Game.getInstance());
-		GameListener.getInstance().getGame().getGameClient().setGameRunning(true);
 		Game.getInstance().start();
 	}
 

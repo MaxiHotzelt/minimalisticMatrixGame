@@ -8,7 +8,6 @@ import javax.swing.JComponent;
 
 import minimalisticMatrixGame.client.control.GameListener;
 import minimalisticMatrixGame.client.model.InputField;
-import minimalisticMatrixGame.client.model.MatrixChar;
 import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.Container;
 import minimalisticMatrixGame.client.view.panels.IPanel;
@@ -37,9 +36,7 @@ public class Game implements IPanel {
 
 	public void start() {
 		for (MatrixString s : matrixStrings) {
-			for (MatrixChar c : s.getChars()) {
-				c.start();
-			}
+			s.start();
 		}
 	}
 

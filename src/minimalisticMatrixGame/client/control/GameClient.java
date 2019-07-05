@@ -3,27 +3,21 @@ package minimalisticMatrixGame.client.control;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.Scanner;
+
+import minimalisticMatrixGame.client.utils.StreamReader;
 
 public class GameClient extends Thread {
 
-	private Thread in;
 	private final int SERVER_PORT = 31337;
 	private final String SERVER_IP = "localhost";
 	private Socket socket;
 	private PrintWriter writer;
-	private Scanner reader;
+	private Thread reader;
 
 	private boolean wordGuessed;
-	/**
-	 * This variable tells, if the game inside the application is running (and not
-	 * the application itself).
-	 */
-	private boolean gameRunning;
 
 	public GameClient() {
-		wordGuessed = false;
-		gameRunning = false;
+		this.wordGuessed = false;
 	}
 
 	/**
@@ -36,14 +30,12 @@ public class GameClient extends Thread {
 		try {
 			this.socket = new Socket(SERVER_IP, SERVER_PORT);
 			this.writer = new PrintWriter(socket.getOutputStream(), true);
-			this.reader = new Scanner(socket.getInputStream());
+			this.reader = new Thread(new StreamReader(this.socket));
 
 			if (!this.isAlive()) {
 				this.start();
 			}
 
-			this.writer = new PrintWriter(this.socket.getOutputStream(), true);
-			in = new Thread(new StreamReader(this.socket));
 			return true;
 		} catch (IOException e1) {
 			System.err.println(
@@ -56,32 +48,26 @@ public class GameClient extends Thread {
 
 	@Override
 	public void run() {
-		in.start();
 		super.run();
-		do {
+
+		reader.start();
+
+		while (!wordGuessed) {
+			// do nothing and wait until the player has guessed the word
 			try {
-				this.sleep(1);
+				Thread.sleep(1);
 			} catch (Exception e) {
-				// TODO: handle exception
+				e.printStackTrace();
 			}
-		} while (!wordGuessed);
-		System.out.println("wort wurde erraten :) ");
-		// do nothing and wait until the player has guessed the word
+		}
+
+		System.out.println("Wort wurde erraten :) ");
 		this.writer.println("done");
-		gameRunning = false;
 	}
 
 	public void setFinishedGame(boolean finishedGame) {
 		System.out.println("Wort wurde gefunden -> Setze wordGuessed auf true!");
 		this.wordGuessed = finishedGame;
-	}
-
-	public void setGameRunning(boolean gameRunning) {
-		this.gameRunning = gameRunning;
-	}
-
-	public boolean isGameRunning() {
-		return gameRunning;
 	}
 
 }

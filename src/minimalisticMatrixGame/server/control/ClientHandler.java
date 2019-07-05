@@ -21,11 +21,11 @@ public class ClientHandler implements Runnable {
 
 	@Override
 	public void run() {
-		final int MAX_PLAYERS_PER_GAME = 2;
+		final int MAX_PLAYERS_PER_GAME = 1;
 		while (true) {
 			if (waitingPool.size() >= MAX_PLAYERS_PER_GAME) {
 				GameServer game = new GameServer();
-				for(int i = 0 ; i < MAX_PLAYERS_PER_GAME; i++) {
+				for (int i = 0; i < MAX_PLAYERS_PER_GAME; i++) {
 					game.addPlayer(waitingPool.get(0));
 					waitingPool.remove(0);
 				}

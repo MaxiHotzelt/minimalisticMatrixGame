@@ -4,25 +4,27 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.Random;
 
-public class MatrixString {
+import minimalisticMatrixGame.client.utils.GamestateEnum;
+import minimalisticMatrixGame.client.view.Container;
+
+public class MatrixString extends Thread {
 	private MatrixChar[] chars;
-	private int yVelocity;
 	private String charPatterForChangingXPos = "iltrfj";
+	private int yVelocity = new Random().nextInt(17) + 5;
 
 	public MatrixString(String word, int xPos, int yPos) {
 		word = changeCharPlace(word);
 		chars = new MatrixChar[word.length()];
 
-		int yVelocity = new Random().nextInt(17) + 5;
-		createString(word, xPos, yPos, yVelocity);
+		createString(word, xPos, yPos);
 	}
 
-	private void createString(String word, int xPos, int yPos, int yVelocity) {
+	private void createString(String word, int xPos, int yPos) {
 		for (int i = 0; i < word.length(); i++) {
 			// Short if else
 			chars[i] = charPatterForChangingXPos.contains("" + word.charAt(i))
-					? new MatrixChar(new Point(xPos + 4, yPos - (30 * i)), word.charAt(i), yVelocity)
-					: new MatrixChar(new Point(xPos, yPos - (30 * i)), word.charAt(i), yVelocity);
+					? new MatrixChar(new Point(xPos + 4, yPos - (30 * i)), word.charAt(i))
+					: new MatrixChar(new Point(xPos, yPos - (30 * i)), word.charAt(i));
 		}
 	}
 
@@ -47,8 +49,24 @@ public class MatrixString {
 		// Not Implemented
 	}
 
-	public MatrixChar[] getChars() {
-		return chars;
+	@Override
+	public void run() {
+		super.run();
+
+		while (Container.getInstance().getGamestate() == GamestateEnum.Game) {
+
+			for (MatrixChar c : chars) {
+				c.move();
+			}
+
+			try {
+				Thread.sleep(this.yVelocity);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 }
