@@ -10,7 +10,7 @@ import minimalisticMatrixGame.client.view.Container;
 public class MatrixString extends Thread {
 	private MatrixChar[] chars;
 	private String charPatterForChangingXPos = "iltrfj";
-	private int yVelocity = new Random().nextInt(17) + 5;
+	private int yVelocity = new Random().nextInt(5) + 1;
 
 	public MatrixString(String word, int xPos, int yPos) {
 		word = changeCharPlace(word);

@@ -22,7 +22,7 @@ public class MatrixChar {
 
 	public void move() {
 		if (yPos > 1080) {
-			yPos -= 1080;
+			yPos = startingPosition.y;
 		} else {
 			yPos += 1;
 		}
