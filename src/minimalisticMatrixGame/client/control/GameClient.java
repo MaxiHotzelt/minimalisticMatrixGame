@@ -9,7 +9,8 @@ import minimalisticMatrixGame.client.utils.StreamReader;
 public class GameClient extends Thread {
 
 	private final int SERVER_PORT = 31337;
-	private final String SERVER_IP = "localhost";
+	private final String SERVER_IP = "10.176.51.108";
+//	private final String SERVER_IP = "91.208.38.90";
 	private Socket socket;
 	private PrintWriter writer;
 	private Thread reader;
