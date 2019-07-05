@@ -144,7 +144,7 @@ public class InputField {
 			wrongAnswer = true;
 			rumbleLeft = true;
 			try {
-				timer.sleep(750);
+				timer.sleep(500);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
