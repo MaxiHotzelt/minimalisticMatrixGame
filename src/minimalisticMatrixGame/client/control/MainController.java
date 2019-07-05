@@ -12,6 +12,7 @@ import minimalisticMatrixGame.client.model.MatrixString;
 import minimalisticMatrixGame.client.view.Container;
 import minimalisticMatrixGame.client.view.Startframe;
 import minimalisticMatrixGame.client.view.panels.impl.End;
+import minimalisticMatrixGame.client.view.panels.impl.Game;
 import minimalisticMatrixGame.client.view.panels.impl.Loading;
 import minimalisticMatrixGame.client.view.panels.impl.Start;
 
@@ -30,8 +31,13 @@ public class MainController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Start.getInstance().getStartGameBtn()) {
 			if (!Start.getInstance().getUsernameTxtFd().getText().isEmpty()) {
-				GameListener.getInstance().createNewGame();
-				Container.getInstance().changePanel(Loading.getInstance());
+				if (GameListener.getInstance().createNewGame()) {
+					Container.getInstance().changePanel(Loading.getInstance());
+				} else {
+					JOptionPane.showMessageDialog(Container.getInstance(),
+							"Konnte keine Verbindung mit Server herstellen. \nBitte versuchen Sie es erneut.",
+							"Server nicht erreichbar", JOptionPane.INFORMATION_MESSAGE, null);
+				}
 			} else {
 				JOptionPane.showMessageDialog(Container.getInstance(), "Geben Sie einen Usernamen ein.",
 						"Ungültiger Username", JOptionPane.INFORMATION_MESSAGE, null);
@@ -43,13 +49,18 @@ public class MainController implements ActionListener {
 		}
 	}
 
+	public void startGame() {
+		Container.getInstance().changePanel(Game.getInstance());
+		GameListener.getInstance().getGame().getGameClient().setGameRunning(true);
+		Game.getInstance().start();
+	}
+
 	public ArrayList<MatrixString> createMatrixStringList() {
 		String word = GameListener.getInstance().getGame().getWord();
 		ArrayList<MatrixString> matrixstrings = new ArrayList<>();
 		for (int i = 8; i < Startframe.getInstance().getWidth(); i += MatrixChar.getFont().getSize()) {
 			int yPos = new Random().nextInt(200) + 3;
-			int vel = new Random().nextInt(17) + 5;
-			matrixstrings.add(new MatrixString(word, i, -yPos, vel));
+			matrixstrings.add(new MatrixString(word, i, -yPos));
 		}
 		return matrixstrings;
 	}

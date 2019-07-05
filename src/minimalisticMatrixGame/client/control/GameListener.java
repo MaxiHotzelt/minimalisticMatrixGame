@@ -16,9 +16,14 @@ public class GameListener implements KeyListener {
 	private GameListener() {
 	}
 
-	public void createNewGame() {
+	/**
+	 * 
+	 * @return Returns true, if connection to server was possible and new game is
+	 *         created, else return false.
+	 */
+	public boolean createNewGame() {
 		this.game = new Game();
-		this.game.getGameClient().connect();
+		return this.game.getGameClient().connect();
 	}
 
 	@Override

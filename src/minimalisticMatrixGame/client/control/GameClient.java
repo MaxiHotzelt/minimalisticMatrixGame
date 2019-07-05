@@ -27,18 +27,28 @@ public class GameClient extends Thread {
 		gameRunning = false;
 	}
 
-	public void connect() {
+	/**
+	 * 
+	 * @return Returns true, if connection to server was succesful, else returns
+	 *         false.
+	 */
+	public boolean connect() {
+
 		try {
 			this.socket = new Socket(SERVER_IP, SERVER_PORT);
 			this.writer = new PrintWriter(socket.getOutputStream(), true);
 			this.reader = new Scanner(socket.getInputStream());
+
+			if (!this.isAlive()) {
+				this.start();
+			}
+
+			return true;
 		} catch (IOException e1) {
 			System.err.println(
 					"Couldn't connect to server with \nPort: " + this.SERVER_PORT + " and IP: " + this.SERVER_IP);
-		}
 
-		if (!this.isAlive()) {
-			this.start();
+			return false;
 		}
 
 	}
@@ -71,6 +81,10 @@ public class GameClient extends Thread {
 
 	public void setGameRunning(boolean gameRunning) {
 		this.gameRunning = gameRunning;
+	}
+
+	public boolean isGameRunning() {
+		return gameRunning;
 	}
 
 }
