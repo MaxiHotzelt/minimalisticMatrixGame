@@ -48,9 +48,16 @@ public class GameListener implements KeyListener {
 
 	private void checkWords() {
 		if (InputField.getInstance().getInput().equalsIgnoreCase(this.game.getWord())) {
-			this.game.getGameClient().setFinishedGame(true);
+			gameFinished();
+		}else {
+			InputField.getInstance().wrongInput();
 		}
 
+	}
+	
+	private void gameFinished() {
+		InputField.getInstance().rightInput();
+		this.game.getGameClient().setFinishedGame(true);
 	}
 
 	public static GameListener getInstance() {

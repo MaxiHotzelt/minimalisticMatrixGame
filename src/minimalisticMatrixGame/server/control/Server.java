@@ -19,6 +19,8 @@ public class Server {
 	public void start() {
 		System.out.println("Server is running and waiting for clients...");
 		try (ServerSocket server = new ServerSocket(port)) {
+			Thread clienthandler = new Thread(ClientHandler.getInstance());
+			clienthandler.start();
 			while (true) {
 				ClientHandler.getInstance().addClient(server.accept());
 			}

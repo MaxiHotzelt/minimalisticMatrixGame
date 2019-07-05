@@ -33,7 +33,7 @@ public class Game implements IPanel {
 		this.matrixstrings = matrixstrings;
 		
 		inputfield = InputField.getInstance();
-		inputfield.setLength(wordlength);
+		inputfield.settupNewGame(wordlength);
 //		this.ready = true;
 	}
 

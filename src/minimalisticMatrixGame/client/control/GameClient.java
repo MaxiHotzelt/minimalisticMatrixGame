@@ -9,11 +9,11 @@ import minimalisticMatrixGame.client.utils.MessageHandler;
 
 public class GameClient extends Thread {
 
+	private Thread in;
 	private final int SERVER_PORT = 31337;
 	private final String SERVER_IP = "localhost";
 	private Socket socket;
 	private PrintWriter writer;
-	private Scanner reader;
 
 	private boolean wordGuessed;
 	/**
@@ -30,8 +30,8 @@ public class GameClient extends Thread {
 	public void connect() {
 		try {
 			this.socket = new Socket(SERVER_IP, SERVER_PORT);
-			this.writer = new PrintWriter(socket.getOutputStream(), true);
-			this.reader = new Scanner(socket.getInputStream());
+			this.writer = new PrintWriter(this.socket.getOutputStream(), true);
+			in = new Thread(new StreamReader(this.socket));
 		} catch (IOException e1) {
 			System.err.println(
 					"Couldn't connect to server with \nPort: " + this.SERVER_PORT + " and IP: " + this.SERVER_IP);
@@ -45,27 +45,23 @@ public class GameClient extends Thread {
 
 	@Override
 	public void run() {
+		in.start();
 		super.run();
-		while (true) {
-			while (this.reader.hasNextLine()) {
-				MessageHandler.getInstance().handleMessage(this.reader.nextLine());
-				if (gameRunning) {
-					while (!wordGuessed) {
-						// do nothing and wait until the player has guessed the word
+				do {
+					try {
+						this.sleep(1);
+					} catch (Exception e) {
+						// TODO: handle exception
 					}
-
-					this.writer.println("done");
-					this.writer.flush();
-
-					// is set to false, because the game has been started
-					gameRunning = false;
-				}
-
-			}
-		}
+				}while(!wordGuessed);
+						System.out.println("wort wurde erraten :) ");
+						// do nothing and wait until the player has guessed the word
+						this.writer.println("done");
+						gameRunning = false;
 	}
 
 	public void setFinishedGame(boolean finishedGame) {
+		System.out.println("Wort wurde gefunden -> Setze wordGuessed auf true!");
 		this.wordGuessed = finishedGame;
 	}
 

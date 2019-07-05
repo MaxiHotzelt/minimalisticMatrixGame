@@ -1,37 +1,34 @@
 package minimalisticMatrixGame.server.control;
 
+import java.util.ArrayList;
+
 import minimalisticMatrixGame.server.model.Player;
 import minimalisticMatrixGame.server.utils.WordGatherer;
 
-public class GameServer extends Thread {
+public class GameServer implements Runnable{
 
-	private Player player1;
-	private Player player2;
-
+	
+	private ArrayList<Thread> playerThreads;
+	private ArrayList<Player> playerList;
 	
 	private String word;
 
 	private Player winner;
-	private boolean running = true;
 
-	public GameServer(Player player1, Player player2) {
-		System.out.println("Game Server created for: \n" + player1.getSocket() + "\n" + player2.getSocket());
-		this.word = WordGatherer.getInstance().getRandomWord();
-
-		this.player1 = player1;
-		this.player2 = player2;
-
-		this.player1.setGameServer(this);
-		this.player2.setGameServer(this);
+	public GameServer() {
 		
-		if(!this.isAlive()) {
-			this.start();
-		}
+		this.word = WordGatherer.getInstance().getRandomWord();
+		playerThreads = new ArrayList<Thread>();
+		playerList = new ArrayList<Player>();
 
-		if (!this.isAlive()) {
-			this.start();
-		}
-
+	}
+	
+	public void addPlayer(Player player) {
+		player.setGameServer(this);
+		
+		playerThreads.add(new Thread(player));
+		playerList.add(player);
+		
 	}
 
 	/**
@@ -49,19 +46,42 @@ public class GameServer extends Thread {
 
 	@Override
 	public void run() {
-		super.run();
-		player1.start();
-		player2.start();
-
-		while (running) {
-			if (player1.isFinishedGame() && player2.isFinishedGame()) {
-				player1.setEndGame(true);
-				player2.setEndGame(true);
-
-				running = false;
+		boolean gameDone = false;
+		for(Thread t : playerThreads) {
+			t.start();
+		}
+		while (true) {
+			sleep(1);
+			if (isGameDone()) {
+				for(Player p : playerList) {
+					p.setEndGame(true);
+				}
+				break;
 			}
 		}
+		for(Thread t : playerThreads) {
+			t.interrupt();
+		}
+	}
 
+	private boolean isGameDone() {
+		boolean gameDone = false;
+		for(Player p : playerList) {
+			if(p.isFinishedGame()) {
+				gameDone = true;
+			}else {
+				return false;
+			}
+		}
+		return gameDone;
+	}
+
+	private void sleep(int time) {
+		try {
+			Thread.sleep(time);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	public String getWord() {

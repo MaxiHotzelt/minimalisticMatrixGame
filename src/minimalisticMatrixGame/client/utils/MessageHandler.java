@@ -16,6 +16,7 @@ public class MessageHandler {
 	}
 
 	public void handleMessage(String message) {
+		System.out.println(message);
 		if (message.toLowerCase(Locale.getDefault()).contains("start game")) {
 			Container.getInstance().changePanel(Game.getInstance());
 			GameListener.getInstance().getGame().getGameClient().setGameRunning(true);

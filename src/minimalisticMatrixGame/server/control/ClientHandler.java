@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import minimalisticMatrixGame.server.model.Player;
 
-public class ClientHandler extends Thread {
+public class ClientHandler implements Runnable {
 
 	private static ClientHandler clientHandler = new ClientHandler();
 
@@ -17,9 +17,6 @@ public class ClientHandler extends Thread {
 	public void addClient(Socket client) {
 		System.out.println("New Client: \n" + client);
 		waitingPool.add(new Player(client));
-		if (!this.isAlive()) {
-			this.start();
-		}
 	}
 
 	@Override
@@ -27,13 +24,17 @@ public class ClientHandler extends Thread {
 		final int MAX_PLAYERS_PER_GAME = 2;
 		while (true) {
 			if (waitingPool.size() >= MAX_PLAYERS_PER_GAME) {
-				new GameServer(waitingPool.get(0), waitingPool.get(1));
-				waitingPool.remove(1);
-				waitingPool.remove(0);
+				GameServer game = new GameServer();
+				for(int i = 0 ; i < MAX_PLAYERS_PER_GAME; i++) {
+					game.addPlayer(waitingPool.get(0));
+					waitingPool.remove(0);
+				}
+				Thread gameThread = new Thread(game);
+				gameThread.start();
 			}
 
 			try {
-				Thread.sleep(100);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

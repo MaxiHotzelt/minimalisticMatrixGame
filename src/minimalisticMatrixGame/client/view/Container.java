@@ -69,9 +69,9 @@ public class Container extends JPanel {
 		} else if (panel instanceof Game) {
 			this.setBackground(Color.black);
 			this.requestFocusInWindow();
-			gamestate = GamestateEnum.Game;
 			Game.getInstance().settings(MainController.getInstance().createMatrixStringList(),
 					GameListener.getInstance().getGame().getWord().length());
+			gamestate = GamestateEnum.Game;
 		} else if (panel instanceof End) {
 			gamestate = GamestateEnum.End;
 			this.setLayout(new GridLayout(2, 1));
@@ -91,8 +91,6 @@ public class Container extends JPanel {
 		super.paintComponent(g);
 
 		if (gamestate == GamestateEnum.Game ) {
-//			Game.getInstance().isReady()) {
-//		}
 			Game.getInstance().render(g);
 		} else if (gamestate == GamestateEnum.Loading) {
 			Loading.getInstance().render(g);

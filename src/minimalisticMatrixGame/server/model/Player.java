@@ -8,12 +8,11 @@ import java.util.Scanner;
 import minimalisticMatrixGame.server.control.GameServer;
 import minimalisticMatrixGame.server.utils.MessageHandler;
 
-public class Player extends Thread {
+public class Player implements Runnable{
 	private Scanner reader;
 	private PrintWriter writer;
 	private Socket socket;
 
-	private boolean initGame = false;
 	private boolean sendEnd = false;
 	private boolean finishedGame = false;
 	private boolean endGame = false;
@@ -35,21 +34,17 @@ public class Player extends Thread {
 
 	@Override
 	public void run() {
-		super.run();
 
-		this.setInitGame(true);
+		this.writer.println("word#" + gameServer.getWord());
+		this.writer.println("start game");
+		MessageHandler.getInstance().handleMessage(this.reader.nextLine(), this);
 		while (gameRunning) {
-			if (initGame) {
-				this.writer.println("word#" + gameServer.getWord());
-				this.writer.println("start game");
-				this.writer.flush();
-
-				this.reader.hasNext();
-				MessageHandler.getInstance().handleMessage(this.reader.nextLine(), this);
-
-				// game doesn't need to be initialized again, so initGame is set to false
-				initGame = false;
-			} else if (finishedGame) {
+			try {
+				Thread.sleep(1);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+				if (finishedGame) {
 				// this only should be called once - right after the word is guessed
 				if (!sendEnd) {
 					gameServer.guessedWord(this);
@@ -69,9 +64,6 @@ public class Player extends Thread {
 
 	}
 
-	public void setInitGame(boolean value) {
-		this.initGame = value;
-	}
 
 	public void setFinishedGame(boolean finishedGame) {
 		this.finishedGame = finishedGame;
@@ -93,16 +85,5 @@ public class Player extends Thread {
 		this.won = won;
 	}
 
-	public Scanner getReader() {
-		return reader;
-	}
-
-	public PrintWriter getWriter() {
-		return writer;
-	}
-
-	public Socket getSocket() {
-		return socket;
-	}
 
 }
