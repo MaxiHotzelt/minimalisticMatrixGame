@@ -12,19 +12,25 @@ public class MatrixString extends Thread {
 	private String charPatterForChangingXPos = "iltrfj";
 	private int yVelocity = new Random().nextInt(5) + 1;
 
+	private final int X_OFFSET = 4;
+	/**
+	 * This final variable represents the vertical space between each char
+	 */
+	private final int Y_OFFSET = 30;
+
 	public MatrixString(String word, int xPos, int yPos) {
 		word = changeCharPlace(word);
 		chars = new MatrixChar[word.length()];
 
-		createString(word, xPos, yPos);
+		createMatrixString(word, xPos, yPos);
 	}
 
-	private void createString(String word, int xPos, int yPos) {
+	private void createMatrixString(String word, int xPos, int yPos) {
 		for (int i = 0; i < word.length(); i++) {
 			// Short if else
 			chars[i] = charPatterForChangingXPos.contains("" + word.charAt(i))
-					? new MatrixChar(new Point(xPos + 4, yPos - (30 * i)), word.charAt(i))
-					: new MatrixChar(new Point(xPos, yPos - (30 * i)), word.charAt(i));
+					? new MatrixChar(new Point(xPos + X_OFFSET, yPos - (Y_OFFSET * i)), word.charAt(i), yPos)
+					: new MatrixChar(new Point(xPos, yPos - (Y_OFFSET * i)), word.charAt(i), yPos);
 		}
 	}
 
@@ -32,10 +38,6 @@ public class MatrixString extends Thread {
 		for (int i = 0; i < chars.length; i++) {
 			chars[i].render(g);
 		}
-	}
-
-	private void changeCharPlace() {
-		// Not Implemented
 	}
 
 	private String changeCharPlace(String word) {
@@ -46,7 +48,6 @@ public class MatrixString extends Thread {
 			sb.append(rdChar);
 		}
 		return sb.toString();
-		// Not Implemented
 	}
 
 	@Override
@@ -62,7 +63,6 @@ public class MatrixString extends Thread {
 			try {
 				Thread.sleep(this.yVelocity);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

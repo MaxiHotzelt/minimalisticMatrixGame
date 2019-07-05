@@ -1,16 +1,16 @@
 package minimalisticMatrixGame.client.model;
 
-import minimalisticMatrixGame.client.control.GameClient;
+import minimalisticMatrixGame.client.control.ServerConnector;
 
 public class Game {
 
-	private String soughtword;
-	private GameClient gameClient;
+	private String soughtWord;
+	private ServerConnector gameClient;
 	private boolean won;
 
 	public Game() {
 		this.won = false;
-		this.gameClient = new GameClient();
+		this.gameClient = new ServerConnector();
 	}
 
 	public boolean isWon() {
@@ -22,14 +22,14 @@ public class Game {
 	}
 
 	public void setWord(String soughtword) {
-		this.soughtword = soughtword;
+		this.soughtWord = soughtword;
 	}
 
 	public String getWord() {
-		return this.soughtword;
+		return this.soughtWord;
 	}
 
-	public GameClient getGameClient() {
+	public ServerConnector getGameClient() {
 		return gameClient;
 	}
 }

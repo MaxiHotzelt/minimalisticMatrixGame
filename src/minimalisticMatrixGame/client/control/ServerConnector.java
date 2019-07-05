@@ -6,7 +6,7 @@ import java.net.Socket;
 
 import minimalisticMatrixGame.client.utils.StreamReader;
 
-public class GameClient extends Thread {
+public class ServerConnector extends Thread {
 
 	private final int SERVER_PORT = 31337;
 	private final String SERVER_IP = "localhost";
@@ -16,7 +16,7 @@ public class GameClient extends Thread {
 
 	private boolean wordGuessed;
 
-	public GameClient() {
+	public ServerConnector() {
 		this.wordGuessed = false;
 	}
 
@@ -63,10 +63,11 @@ public class GameClient extends Thread {
 
 		System.out.println("Wort wurde erraten :) ");
 		this.writer.println("done");
+
+		reader.interrupt();
 	}
 
 	public void setFinishedGame(boolean finishedGame) {
-		System.out.println("Wort wurde gefunden -> Setze wordGuessed auf true!");
 		this.wordGuessed = finishedGame;
 	}
 

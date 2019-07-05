@@ -29,8 +29,13 @@ public class MainController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// start game btn has been pressed
 		if (e.getSource() == Start.getInstance().getStartGameBtn()) {
+
+			// checks if the username input field is empty or not
 			if (!Start.getInstance().getUsernameTxtFd().getText().isEmpty()) {
+				// checks if the server is reachable and swaps to loading screen if the server
+				// is available
 				if (GameListener.getInstance().createNewGame()) {
 					Container.getInstance().changePanel(Loading.getInstance());
 				} else {
@@ -42,9 +47,13 @@ public class MainController implements ActionListener {
 				JOptionPane.showMessageDialog(Container.getInstance(), "Geben Sie einen Usernamen ein.",
 						"Ungültiger Username", JOptionPane.INFORMATION_MESSAGE, null);
 			}
-		} else if (e.getSource() == End.getInstance().getPlayAgainBtn()) {
+		}
+		// play again btn has been pressed
+		else if (e.getSource() == End.getInstance().getPlayAgainBtn()) {
 			Container.getInstance().changePanel(Start.getInstance());
-		} else if (e.getSource() == End.getInstance().getQuitBtn()) {
+		}
+		// quit button has been pressed
+		else if (e.getSource() == End.getInstance().getQuitBtn()) {
 			System.exit(0);
 		}
 	}
@@ -54,14 +63,15 @@ public class MainController implements ActionListener {
 		Game.getInstance().start();
 	}
 
-	public ArrayList<MatrixString> createMatrixStringList() {
+	public ArrayList<MatrixString> createMatrixStrings() {
 		String word = GameListener.getInstance().getGame().getWord();
-		ArrayList<MatrixString> matrixstrings = new ArrayList<>();
+		ArrayList<MatrixString> matrixStrings = new ArrayList<>();
+
 		for (int i = 8; i < Startframe.getInstance().getWidth(); i += MatrixChar.getFont().getSize()) {
-			int yPos = new Random().nextInt(200) + 3;
-			matrixstrings.add(new MatrixString(word, i, -yPos));
+			int yPos = -(new Random().nextInt(200) + 3);
+			matrixStrings.add(new MatrixString(word, i, yPos));
 		}
-		return matrixstrings;
+		return matrixStrings;
 	}
 
 }

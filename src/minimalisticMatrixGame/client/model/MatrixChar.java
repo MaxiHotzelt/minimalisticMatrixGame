@@ -9,29 +9,31 @@ public class MatrixChar {
 
 	private final Point startingPosition;
 	private final char character;
+	private final int resetPointY;
 	private static final Font font = new Font("SansSarif", Font.ROMAN_BASELINE, 30);
-	private int yPos;
+	private int currentPosY;
 	private final Color color;
 
-	public MatrixChar(Point startingPosition, char character) {
+	public MatrixChar(Point startingPosition, char character, int resetPointY) {
+		this.resetPointY = resetPointY;
 		this.startingPosition = startingPosition;
 		this.character = character;
-		this.yPos = (int) startingPosition.getY();
-		this.color = Color.red;
+		this.currentPosY = (int) startingPosition.getY();
+		this.color = new Color(13, 254, 38);
 	}
 
 	public void move() {
-		if (yPos > 1080) {
-			yPos = startingPosition.y;
+		if (currentPosY > 1080) {
+			currentPosY = resetPointY;
 		} else {
-			yPos += 1;
+			currentPosY += 1;
 		}
 	}
 
 	public void render(Graphics g) {
 		g.setFont(font);
 		g.setColor(color);
-		g.drawString("" + this.character, startingPosition.x, yPos);
+		g.drawString("" + this.character, startingPosition.x, currentPosY);
 	}
 
 	public static Font getFont() {
